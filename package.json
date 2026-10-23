@@ -10,7 +10,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "brand": "node scripts/brand-assets.mjs",
+    "pdf": "node scripts/erstinformation-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
@@ -22,5 +24,8 @@
   },
   "engines": {
     "node": ">=22.23.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
   }
 }

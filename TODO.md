@@ -1,6 +1,8 @@
 # Offene Punkte
 
-Jeder Platzhalter im Projekt steht hier mit Datei, Zeile und dem, was fehlt. Nichts davon blockiert den Bau, alles blockiert den Go-live. Die Nummern folgen BRIEF.md Abschnitt 9.
+Jeder Platzhalter im Projekt steht hier mit Datei, Stelle und dem, was fehlt. Nichts davon blockiert den Bau, alles blockiert den Go-live. Die Nummern folgen BRIEF.md Abschnitt 9. Stand: 23.10.2026, alle acht Schritte aus Abschnitt 2 sind gebaut.
+
+Schnellster Weg zum Go-live: Punkte 3, 6, 7 und 8 liefern, `PLACEHOLDER_MODE` bleibt bis dahin `true`. Punkt 5 (Bewertungen) kann schrittweise nachgeliefert werden; der Kompass zeigt unbewertete Versicherer grau mit „Bewertung folgt“.
 
 ## Platzhalter in Dateien
 
@@ -43,7 +45,7 @@ Jeder Platzhalter im Projekt steht hier mit Datei, Zeile und dem, was fehlt. Nic
 
 | Datei | Stelle | Was fehlt oder gilt | Nr. im Brief |
 | --- | --- | --- | --- |
-| `public/erstinformation.pdf` | Footer-Link „Erstinformation als PDF“ | Datei fehlt noch; der Link ist bis dahin tot und trägt das Badge | 8 |
+| `public/erstinformation.pdf` | Footer-Link „Erstinformation als PDF“ | Platzhalter-PDF, mit `npm run pdf` aus der Seite /erstinformation erzeugt; enthält dieselben TODO-Werte und Badges | 8 |
 | `src/components/Footer.astro` | Satz zu WhatsApp und Meta | Formulierung vom Datenschutz-Generator oder Anwalt bestätigen lassen | 7 |
 | `public/brand/smiley.svg` | Bildmarke | Finale Logovariante; alle Icons (Favicon, Touch-Icon, og.png) werden aus dieser SVG erzeugt | 1 |
 
@@ -107,7 +109,14 @@ Geprüft am 23.10.2026 auf dem Produktions-Build mit Chromium (Playwright) und L
 | Tastatur | Skip-Link, Tierwahl per Pfeiltasten, Chip per Enter öffnet Panel, Escape schließt, Dunkelmodus per Enter |
 | JavaScript gesamt | rund 12 KB komprimiert (Budget 60 KB) |
 | Darstellung 360, 768, 1280 px, hell und dunkel | geprüft, keine unlesbaren Stellen |
-| Tote interne Links | nur `/erstinformation.pdf`, siehe Punkt 8; wird in Schritt 8 durch ein Platzhalter-PDF aus der Seite ersetzt |
+| Tote interne Links | keine; `/erstinformation.pdf` ist seit Schritt 8 ein Platzhalter-PDF aus der Seite |
 | `npm run build` | ohne Fehler und Warnungen |
 
 Nicht automatisch geprüft: die Links auf gesetze-im-internet.de und vermittlerregister.info (Netz im Build-Container gesperrt).
+
+## Abschluss (Schritt 8)
+
+- `scripts/brand-assets.mjs` (`npm run brand`) erzeugt Favicon, Touch-Icon und og.png aus `public/brand/smiley.svg`; `scripts/erstinformation-pdf.mjs` (`npm run pdf`) erzeugt das PDF aus der Seite. Beide brauchen einmalig `npx playwright install chromium`.
+- Das PDF enthält den Satz „Du findest sie auch als PDF zum Herunterladen“, weil es aus der Seite entsteht. Vor dem Go-live mit den endgültigen Inhalten neu erzeugen; der Satz kann dann per Druck-CSS ausgeblendet werden.
+- Die Punkte 13 (Google-Unternehmensprofil, Baustein „Was Kunden sagen“) und 14 (echte Fotos) sind bewusst nicht gebaut; die Teamkarten zeigen Initialen-Kreise, bis Fotos unter `public/img/team/` liegen und in `team.json` eingetragen sind.
+- Hinweis zum Punkt 6: Die Domain cleverversichertmakler.de nennt den Maklerstatus. Sollte die Tätigkeit nicht unter eigener Erlaubnis nach § 34d GewO laufen, gehört die Domain selbst in die juristische Prüfung.
