@@ -1,0 +1,110 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Kompass from "../components/Kompass.astro";
+import Cta from "../components/Cta.astro";
+import { criteriaFor, insurers } from "../data";
+import { formatStand } from "../lib/kompass/scoring";
+
+const gruppen = [
+  { titel: "Kriterien für Hund und Katze", liste: criteriaFor("hund") },
+  { titel: "Kriterien für Pferde", liste: criteriaFor("pferd") },
+];
+---
+
+<BaseLayout
+  title="Tier-Kompass: Tarife im Kriterien-Ranking"
+  description="Der Tier-Kompass sortiert Tierkrankenversicherungen für Hund, Katze und Pferd nach einem offenen Kriterienkatalog. Keine Beitragsberechnung, kein Angebot."
+>
+  <section class="section">
+    <div class="container">
+      <Breadcrumb items={[{ label: "Tier-Kompass" }]} />
+      <h1>Tier-Kompass</h1>
+      <p>
+        Wir sortieren Tarife nach dem, was im Bedingungswerk steht: GOT-Satz, Jahreslimit, Wartezeiten, Beitrag im Alter und mehr. Jedes Kriterium bekommt einen Ampelwert, jede Karte ein Stand-Datum. Was wir nicht tun: Beiträge berechnen oder ein Angebot abgeben.
+      </p>
+      <Kompass />
+    </div>
+  </section>
+
+  <section class="section section--mist" id="kriterien">
+    <div class="container">
+      <h2>Was die Kriterien bedeuten</h2>
+      <p>Stand des Katalogs: {formatStand(insurers.stand)}. Die Gewichtung je Eingabe steht auf <a href="/so-bewerten-wir">So bewerten wir</a>.</p>
+      {
+        gruppen.map((g) => (
+          <div class="criteria-group">
+            <h3>{g.titel}</h3>
+            <dl class="criteria-list">
+              {g.liste.map((c) => (
+                <div class="criteria-item card card--paper">
+                  <dt>{c.name}</dt>
+                  <dd>
+                    <p>{c.info}</p>
+                    <ul class="criteria-scale">
+                      <li><span class="chip chip--ok">2</span> {c.werte["2"]}</li>
+                      <li><span class="chip chip--warn">1</span> {c.werte["1"]}</li>
+                      <li><span class="chip chip--no">0</span> {c.werte["0"]}</li>
+                    </ul>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))
+      }
+      <Cta lead="Unsicher, welcher Tarif zu deinem Tier passt?" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .criteria-group {
+    margin-top: var(--space-6);
+  }
+
+  .criteria-list {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .criteria-item dt {
+    font-weight: 600;
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .criteria-item dd {
+    margin: 0;
+  }
+
+  .criteria-scale {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-2);
+    font-size: 0.9375rem;
+  }
+
+  .criteria-scale li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    max-width: none;
+  }
+
+  .criteria-scale .chip {
+    min-height: 26px;
+    min-width: 32px;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+
+  @media (min-width: 900px) {
+    .criteria-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

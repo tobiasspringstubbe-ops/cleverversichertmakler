@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import PartnerGrid from "../components/PartnerGrid.astro";
+import Cta from "../components/Cta.astro";
+---
+
+<BaseLayout title="Tierschutz" description="Mit jedem vermittelten Vertrag unterstützen wir Tierschutzvereine aus der Region. Welche Vereine, wie viel und wie das funktioniert.">
+  <section class="section">
+    <div class="container">
+      <Breadcrumb items={[{ label: "Tierschutz" }]} />
+      <h1>Wir unterstützen Tierschutz – mit Geld, nicht mit Worten</h1>
+      <p>Viele unserer Kunden haben ihr Tier aus dem Tierschutz. Wir geben etwas zurück: nicht als Spendenaufruf an dich, sondern aus unserer eigenen Vergütung.</p>
+      <PartnerGrid />
+      <Cta />
+    </div>
+  </section>
+</BaseLayout>

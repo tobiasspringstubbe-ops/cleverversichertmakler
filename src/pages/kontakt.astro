@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import ContactForm from "../components/ContactForm.astro";
+import ContactChannels from "../components/ContactChannels.astro";
+import Faq from "../components/Faq.astro";
+import { faq } from "../data";
+
+const faqKontakt = faq.slice(6);
+---
+
+<BaseLayout title="Kontakt" description="Erzähl uns von deinem Tier: per Formular, WhatsApp, Telefon oder E-Mail. Wir prüfen die Tarife und melden uns mit einer Empfehlung.">
+  <section class="section">
+    <div class="container">
+      <Breadcrumb items={[{ label: "Kontakt" }]} />
+      <h1 id="anfrage-titel">Erzähl uns von deinem Tier</h1>
+      <p>Fünf Angaben reichen. Du bekommst eine Empfehlung mit Begründung und eine Alternative, keine Tarifliste.</p>
+      <div class="contact-grid">
+        <ContactForm />
+        <div class="contact-side">
+          <ContactChannels full />
+          <h2 class="contact-side__h2">Noch zwei Fragen</h2>
+          <Faq items={faqKontakt} />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+    margin-top: var(--space-5);
+  }
+
+  .contact-side__h2 {
+    font-size: 1.25rem;
+    margin-top: var(--space-6);
+  }
+
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import TeamCard from "../components/TeamCard.astro";
+import Cta from "../components/Cta.astro";
+import { team } from "../data";
+---
+
+<BaseLayout title="Team" description="Die Menschen hinter clever versichert: Beratung aus Mittelhessen, mit eigenen Tieren und direktem Draht per Telefon, Mail und WhatsApp.">
+  <section class="section">
+    <div class="container">
+      <Breadcrumb items={[{ label: "Team" }]} />
+      <h1>Wer dich berät</h1>
+      <p>Wir sind ein kleines Beratungsteam aus Mittelhessen. Jeder von uns hat ein eigenes Tier und weiß, wie sich eine Tierarztrechnung anfühlt. Du erreichst uns direkt, ohne Hotline.</p>
+      <div class="team-grid">
+        {team.map((m) => <TeamCard member={m} />)}
+      </div>
+      <Cta />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .team-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 900px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

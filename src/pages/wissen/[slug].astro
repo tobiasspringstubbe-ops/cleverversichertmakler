@@ -1,0 +1,136 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import Cta from "../../components/Cta.astro";
+import PlaceholderBadge from "../../components/PlaceholderBadge.astro";
+import { BRAND_NAME, SITE_URL } from "../../config";
+import { species } from "../../data";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("wissen");
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const speciesName = (id: string) => species.find((s) => s.id === id)?.name ?? id;
+const dateIso = article.data.date.toISOString().slice(0, 10);
+const dateText = article.data.date.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" });
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: article.data.title,
+  description: article.data.description,
+  datePublished: dateIso,
+  dateModified: dateIso,
+  inLanguage: "de",
+  author: { "@type": "Organization", name: BRAND_NAME },
+  publisher: { "@type": "Organization", name: BRAND_NAME, url: SITE_URL },
+  mainEntityOfPage: new URL(`/wissen/${article.id}`, SITE_URL).href,
+  image: new URL("/og.png", SITE_URL).href,
+};
+---
+
+<BaseLayout title={article.data.title} description={article.data.description} ogType="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <article class="section">
+    <div class="container article">
+      <Breadcrumb items={[{ label: "Wissen", href: "/wissen" }, { label: article.data.title }]} />
+      <p class="article__meta">
+        {article.data.tierarten.map(speciesName).join(", ")}, Stand <time datetime={dateIso}>{dateText}</time>
+      </p>
+      <h1>{article.data.title}</h1>
+      <p class="article__lead">{article.data.description}</p>
+      <div class="article__body prose">
+        <Content />
+      </div>
+      <section class="article__sources">
+        <h2>Quellen</h2>
+        {
+          article.data.sources.length ? (
+            <ul>
+              {article.data.sources.map((s) => (
+                <li>
+                  {s.url ? <a href={s.url} rel="noopener">{s.label}</a> : s.label}
+                  <PlaceholderBadge value={s.label} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              <PlaceholderBadge force /> Quellen folgen.
+            </p>
+          )
+        }
+      </section>
+      <p class="article__closing">Unsicher, was das für dein Tier heißt? Erzähl uns von ihm.</p>
+      <Cta />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article__meta {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .article__lead {
+    font-size: 1.125rem;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .article__body :global(h2) {
+    margin-top: var(--space-6);
+  }
+
+  .article__body :global(h3) {
+    margin-top: var(--space-5);
+  }
+
+  .article__body :global(table) {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .article__body :global(th),
+  .article__body :global(td) {
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  .article__body :global(thead th) {
+    background: var(--mist);
+  }
+
+  .article__body :global(blockquote) {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--gold);
+    color: var(--ink-muted);
+  }
+
+  .article__sources {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  .article__sources h2 {
+    font-size: 1.125rem;
+  }
+
+  .article__closing {
+    margin-top: var(--space-6);
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+</style>

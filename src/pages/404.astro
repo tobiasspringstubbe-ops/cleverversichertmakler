@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Logo from "../components/Logo.astro";
+---
+
+<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es nicht." noindex>
+  <section class="section">
+    <div class="container notfound">
+      <Logo size={96} href={undefined} id="notfound" class="notfound__logo" />
+      <h1>Diese Seite gibt es nicht.</h1>
+      <p>Dein Tier ist trotzdem gut aufgehoben: <a href="/">zur Startseite</a> oder gleich <a href="/kontakt">zum Kontakt</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    text-align: center;
+    padding-block: var(--space-7);
+  }
+
+  .notfound p {
+    margin-inline: auto;
+  }
+
+  .notfound :global(.notfound__logo) {
+    justify-content: center;
+    margin-bottom: var(--space-6);
+  }
+</style>

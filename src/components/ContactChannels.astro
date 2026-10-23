@@ -1,0 +1,115 @@
+---
+/** Erreichbarkeit und die drei Kanäle, auf der Startseite und auf /kontakt. */
+import Icon from "./Icon.astro";
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import { whatsappLink } from "../lib/whatsapp";
+import { CONTACT_MAIL, CONTACT_PHONE, ERREICHBARKEIT_TEXT, STANDORT, WHATSAPP_DEFAULT_TEXT, WHATSAPP_NUMBER, isPlaceholder } from "../config";
+
+interface Props {
+  /** Standort und Erstinformation mit anzeigen. */
+  full?: boolean;
+}
+
+const { full = false } = Astro.props;
+const tel = isPlaceholder(CONTACT_PHONE) ? null : `tel:${CONTACT_PHONE.replace(/[^\d+]/g, "")}`;
+const mail = isPlaceholder(CONTACT_MAIL) ? null : `mailto:${CONTACT_MAIL}`;
+---
+
+<div class="channels card">
+  <h3 class="channels__title">So erreichst du uns</h3>
+  <p class="channels__hours">
+    {ERREICHBARKEIT_TEXT}
+    <PlaceholderBadge value={ERREICHBARKEIT_TEXT} />
+  </p>
+  <ul class="channels__list">
+    <li>
+      <a class="button button--whatsapp" href={whatsappLink(WHATSAPP_DEFAULT_TEXT)} target="_blank" rel="noopener">
+        <Icon name="sprechblase" /> WhatsApp schreiben
+      </a>
+      <PlaceholderBadge value={WHATSAPP_NUMBER} />
+    </li>
+    <li>
+      {
+        tel ? (
+          <a class="button button--secondary" href={tel}>
+            <Icon name="telefon" /> {CONTACT_PHONE}
+          </a>
+        ) : (
+          <span class="button button--secondary" aria-disabled="true">
+            <Icon name="telefon" /> Anrufen
+          </span>
+        )
+      }
+      <PlaceholderBadge value={CONTACT_PHONE} />
+    </li>
+    <li>
+      {
+        mail ? (
+          <a class="button button--secondary" href={mail}>
+            <Icon name="mail" /> {CONTACT_MAIL}
+          </a>
+        ) : (
+          <span class="button button--secondary" aria-disabled="true">
+            <Icon name="mail" /> E-Mail schreiben
+          </span>
+        )
+      }
+      <PlaceholderBadge value={CONTACT_MAIL} />
+    </li>
+  </ul>
+  {
+    full && (
+      <>
+        <p class="channels__place">
+          Beratung aus {STANDORT}, persönlich oder digital.
+          <PlaceholderBadge value={STANDORT} />
+        </p>
+        <p class="channels__legal">
+          Vor dem ersten Gespräch: unsere <a href="/erstinformation">Erstinformation</a> nach § 15 VersVermV.
+        </p>
+      </>
+    )
+  }
+</div>
+
+<style>
+  .channels__title {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .channels__hours {
+    color: var(--ink-muted);
+  }
+
+  .channels__list {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .channels__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    max-width: none;
+  }
+
+  .channels__list .button {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+  }
+
+  .channels__list [aria-disabled="true"] {
+    opacity: 0.5;
+  }
+
+  .channels__place,
+  .channels__legal {
+    margin: 0 0 var(--space-2);
+    font-size: 0.9375rem;
+  }
+</style>

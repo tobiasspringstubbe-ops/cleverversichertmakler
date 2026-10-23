@@ -1,17 +1,202 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SpeciesSwitch from "../components/SpeciesSwitch.astro";
+import SpeciesText from "../components/SpeciesText.astro";
+import CostCards from "../components/CostCards.astro";
+import HonestyBlock from "../components/HonestyBlock.astro";
+import Kompass from "../components/Kompass.astro";
+import Steps from "../components/Steps.astro";
+import TeamCard from "../components/TeamCard.astro";
+import PartnerGrid from "../components/PartnerGrid.astro";
+import Faq from "../components/Faq.astro";
+import ContactForm from "../components/ContactForm.astro";
+import ContactChannels from "../components/ContactChannels.astro";
+import Cta from "../components/Cta.astro";
+import Icon from "../components/Icon.astro";
+import PlaceholderBadge from "../components/PlaceholderBadge.astro";
 import { CLAIM } from "../config";
+import { faq, team } from "../data";
+
+const faqHome = faq.slice(0, 6);
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqHome
+    .filter((f) => !f.antwort.startsWith("TODO"))
+    .map((f) => ({ "@type": "Question", name: f.frage, acceptedAnswer: { "@type": "Answer", text: f.antwort } })),
+};
 ---
 
 <BaseLayout>
-  <section class="section">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+  <section class="hero">
     <div class="container">
       <h1>Für wen suchst du Schutz?</h1>
-      <p class="muted">{CLAIM}</p>
-      <p>Diese Seite entsteht gerade. Tierwahl, Kostenkarten, Tier-Kompass und Kontaktformular folgen in Schritt 3 bis 6 aus BRIEF.md.</p>
-      <p>
-        <a class="button button--primary" href="/kontakt">Erzähl uns von deinem Tier</a>
+      <SpeciesSwitch size="hero" />
+      <p class="hero__after" data-for="any">
+        Gut. Dann zeigen wir dir, was bei <SpeciesText hund="Hunden" katze="Katzen" pferd="Pferden" none="Tieren" /> wirklich teuer wird – und welche Tarife das abdecken.
       </p>
+      <p class="hero__claim">{CLAIM}</p>
+    </div>
+  </section>
+
+  <section class="trust" aria-label="Warum wir">
+    <div class="container trust__grid">
+      <p class="trust__item"><Icon name="haken" /> <span>Wir arbeiten für dich, nicht für einen Versicherer <PlaceholderBadge force /></span></p>
+      <p class="trust__item"><Icon name="haken" /> <span>Wir sagen dir auch, was ein Tarif nicht zahlt</span></p>
+      <p class="trust__item"><Icon name="haken" /> <span>Mit jedem Vertrag unterstützen wir Tierschutzvereine <PlaceholderBadge force /></span></p>
+    </div>
+  </section>
+
+  <section class="section" id="kosten">
+    <div class="container">
+      <h2>Was <SpeciesText hund="ein Hund" katze="eine Katze" pferd="ein Pferd" none="ein Tier" /> wirklich kosten kann</h2>
+      <CostCards />
+      <Cta />
+    </div>
+  </section>
+
+  <section class="section section--mist" id="grenzen">
+    <div class="container">
+      <HonestyBlock />
+    </div>
+  </section>
+
+  <section class="section" id="kompass">
+    <div class="container">
+      <h2>Tier-Kompass: die Top 3 für <SpeciesText hund="deinen Hund" katze="deine Katze" pferd="dein Pferd" none="dein Tier" /></h2>
+      <p>Kein Beitragsrechner, sondern ein offenes Kriterien-Ranking. Jede Karte zeigt, was ein Tarif trägt und was nicht.</p>
+      <Kompass preview />
+      <Cta />
+    </div>
+  </section>
+
+  <section class="section section--mist" id="ablauf">
+    <div class="container">
+      <h2>So läuft es</h2>
+      <Steps />
+      <Cta />
+    </div>
+  </section>
+
+  <section class="section" id="team">
+    <div class="container">
+      <h2>Wer dich berät</h2>
+      <div class="team-grid">
+        {team.slice(0, 3).map((m) => <TeamCard member={m} />)}
+      </div>
+      <p class="section__more"><a class="button button--secondary" href="/team">Das ganze Team</a></p>
+      <Cta />
+    </div>
+  </section>
+
+  <section class="section section--mist" id="tierschutz">
+    <div class="container">
+      <h2>Wir unterstützen Tierschutz – mit Geld, nicht mit Worten</h2>
+      <PartnerGrid compact />
+      <p class="section__more"><a class="button button--secondary" href="/tierschutz">Mehr zum Tierschutz</a></p>
+      <Cta />
+    </div>
+  </section>
+
+  <section class="section" id="fragen">
+    <div class="container">
+      <h2>Fragen, die wir oft hören</h2>
+      <Faq items={faqHome} />
+      <Cta />
+    </div>
+  </section>
+
+  <section class="section section--mist" id="kontakt">
+    <div class="container">
+      <h2 id="anfrage-titel">Erzähl uns von deinem Tier</h2>
+      <div class="contact-grid">
+        <ContactForm />
+        <ContactChannels />
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .hero h1 {
+    margin-bottom: var(--space-5);
+  }
+
+  .hero__after {
+    margin-top: var(--space-5);
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--gold);
+  }
+
+  .hero__claim {
+    margin-top: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  .trust {
+    border-block: 1px solid var(--line);
+    padding-block: var(--space-4);
+  }
+
+  .trust__grid {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .trust__item {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    margin: 0;
+    max-width: none;
+  }
+
+  .trust__item .icon {
+    color: var(--ok);
+    flex: none;
+    margin-top: 4px;
+  }
+
+  .team-grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .section__more {
+    margin-top: var(--space-5);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  @media (min-width: 600px) {
+    .hero {
+      padding-block: var(--space-8) var(--space-7);
+    }
+
+    .trust__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+</style>

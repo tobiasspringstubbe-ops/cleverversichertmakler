@@ -17,7 +17,7 @@ import poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
-import { BRAND_NAME, LOCALE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../config";
+import { BRAND_NAME, CONTACT_MAIL, CONTACT_PHONE, LOCALE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL, STANDORT, isPlaceholder } from "../config";
 
 interface Props {
   title?: string;
@@ -33,6 +33,22 @@ const { title, description = SITE_DESCRIPTION, ogType = "website", noindex = fal
 const pageTitle = title ? `${title} – ${BRAND_NAME}` : SITE_TITLE;
 const canonical = new URL(Astro.url.pathname.replace(/\/+$/, "") || "/", SITE_URL).href;
 const ogImage = new URL("/og.png", SITE_URL).href;
+
+/* Organisation als InsuranceAgency; TODO-Werte bleiben weg, bis sie vorliegen. */
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  name: BRAND_NAME,
+  url: SITE_URL,
+  logo: new URL("/apple-touch-icon.png", SITE_URL).href,
+  image: ogImage,
+  description: SITE_DESCRIPTION,
+  slogan: "Frage immer erst warum.",
+  areaServed: "DE",
+  ...(isPlaceholder(CONTACT_PHONE) ? {} : { telephone: CONTACT_PHONE }),
+  ...(isPlaceholder(CONTACT_MAIL) ? {} : { email: CONTACT_MAIL }),
+  ...(isPlaceholder(STANDORT) ? {} : { address: { "@type": "PostalAddress", addressLocality: STANDORT, addressCountry: "DE" } }),
+};
 ---
 
 <!doctype html>
@@ -86,6 +102,7 @@ const ogImage = new URL("/og.png", SITE_URL).href;
         } catch (e) {}
       })();
     </script>
+    <script type="application/ld+json" set:html={JSON.stringify(organization)} />
     <slot name="head" />
   </head>
   <body>

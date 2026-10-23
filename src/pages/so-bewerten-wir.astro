@@ -1,0 +1,152 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Cta from "../components/Cta.astro";
+import PlaceholderBadge from "../components/PlaceholderBadge.astro";
+import { criteriaFor, insurers, species } from "../data";
+import { formatStand } from "../lib/kompass/scoring";
+
+const regeln = [
+  "Jedes Kriterium hat ein Grundgewicht von 1 und einen Wert von 0 bis 2. Der Score ist die Summe aus Gewicht mal Wert.",
+  "Ist dein Tier 7 bis 9 Jahre oder 10 Jahre und älter (Pferd: 15 Jahre und älter), zählen „Beitrag im Alter“ und „Aufnahme- und Höchstalter“ dreifach.",
+  "Bei großen Hunden zählt „Angeborene und rassetypische Erkrankungen“ doppelt. Bei Sport- und Zuchtpferden zählen „Lahmheitsdiagnostik“ und „Nutzungsarten“ doppelt.",
+  "Bei OP-Schutz fällt „Zahn, Physio und Vorsorge“ aus der Wertung; „Jahreshöchstleistung“ zählt 1,5-fach.",
+  "Vorerkrankungen ändern das Ranking nicht. Wir zeigen stattdessen einen Hinweis, denn bestehende Erkrankungen schließt jeder Tarif aus.",
+  "Sortiert wird absteigend nach Score, bei Gleichstand alphabetisch. Versicherer mit einem unbewerteten Kriterium werden nicht gerankt und stehen grau darunter.",
+  "Platz 1 bekommt das Badge „Unsere Empfehlung“ nur, wenn mindestens drei Versicherer vollständig bewertet sind.",
+];
+---
+
+<BaseLayout
+  title="So bewerten wir"
+  description="Kriterien, Gewichte und Datenquellen des Tier-Kompass. Was wir bewerten, was nicht, und welche Rolle wir als Vermittler haben."
+>
+  <section class="section">
+    <div class="container prose">
+      <Breadcrumb items={[{ label: "So bewerten wir" }]} />
+      <h1>So bewerten wir</h1>
+      <p>
+        Der Tier-Kompass ist kein Tarifrechner und keine Empfehlung „weil wir es sagen“. Er ist ein Ranking nach einem Kriterienkatalog, den du hier vollständig siehst. Stand der letzten Prüfung: <strong>{formatStand(insurers.stand)}</strong>.
+      </p>
+
+      <h2>Die Kriterien und ihre Werte</h2>
+      {
+        species
+          .filter((s) => s.id !== "katze")
+          .map((s) => (
+            <div>
+              <h3>{s.id === "hund" ? "Hund und Katze" : "Pferd"}</h3>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Kriterium</th>
+                      <th scope="col">2</th>
+                      <th scope="col">1</th>
+                      <th scope="col">0</th>
+                      <th scope="col">Grundgewicht</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {criteriaFor(s.id).map((c) => (
+                      <tr>
+                        <th scope="row">{c.name}</th>
+                        <td>{c.werte["2"]}</td>
+                        <td>{c.werte["1"]}</td>
+                        <td>{c.werte["0"]}</td>
+                        <td>{c.gewicht}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))
+      }
+
+      <h2>Wie die Gewichte entstehen</h2>
+      <ol>
+        {regeln.map((r) => <li>{r}</li>)}
+      </ol>
+
+      <h2>Datenquelle je Versicherer</h2>
+      <p>Jede Bewertung stammt aus dem Bedingungswerk des Tarifs, nicht aus Werbung oder Vergleichsportalen. Solange ein Wert fehlt, steht der Versicherer unbewertet in der Liste.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Versicherer</th>
+              <th scope="col">Tierarten</th>
+              <th scope="col">Tarif</th>
+              <th scope="col">Quelle</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              insurers.versicherer.map((v) => (
+                <tr>
+                  <th scope="row">{v.name}</th>
+                  <td>{v.tierarten.map((t) => species.find((s) => s.id === t)?.name).join(", ")}</td>
+                  <td>
+                    {v.tarif}
+                    <PlaceholderBadge value={v.tarif} />
+                  </td>
+                  <td>
+                    {v.quelle}
+                    <PlaceholderBadge value={v.quelle} />
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <PlaceholderBadge force /> Die Liste wird noch mit den Versicherern abgeglichen, die wir vermitteln können.
+      </p>
+
+      <h2>Was wir nicht bewerten</h2>
+      <p>
+        Service, Erreichbarkeit und Schadenregulierung bewerten wir nicht; dafür fehlen uns belastbare Daten. Preise zeigen wir nur als Richtwerte, Beitrag und Annahme prüft immer der Versicherer. Testergebnisse Dritter zitieren wir nur mit Lizenz.
+      </p>
+
+      <h2>Unsere Rolle</h2>
+      <p>
+        Wir vermitteln Tierkrankenversicherungen und erhalten dafür eine Courtage vom Versicherer. Der Beitrag ist für dich derselbe wie beim Direktabschluss. Welche Versicherer wir vermitteln können, hängt von unseren Vereinbarungen ab; das Ranking zeigt trotzdem alle Tarife, die wir geprüft haben.
+        <PlaceholderBadge force />
+      </p>
+
+      <Cta lead="Du willst wissen, was das für dein Tier heißt?" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .table-wrap {
+    overflow-x: auto;
+    margin-bottom: var(--space-5);
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .table th,
+  .table td {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .table thead th {
+    font-weight: 600;
+    background: var(--mist);
+  }
+
+  .table tbody th {
+    font-weight: 600;
+  }
+</style>

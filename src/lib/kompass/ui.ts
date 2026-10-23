@@ -186,7 +186,7 @@ function renderCard(entry: ScoredInsurer, place: number | null, input: KompassIn
     ${priceHtml}
     <div class="rank-card__actions">
       <a class="button button--primary" href="${requestLink(input, insurer)}">Beitrag anfragen</a>
-      <small class="rank-card__stand">Stand ${formatStand(insurers.stand)} · <a href="/so-bewerten-wir">So bewerten wir</a></small>
+      <small class="rank-card__stand">Stand ${formatStand(insurers.stand)}, <a href="/so-bewerten-wir">so bewerten wir</a></small>
     </div>
   </article>`;
 }

@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import LegalBlock from "../components/LegalBlock.astro";
+import PlaceholderBadge from "../components/PlaceholderBadge.astro";
+import Cta from "../components/Cta.astro";
+import { CONTACT_MAIL, CONTACT_PHONE } from "../config";
+---
+
+<BaseLayout title="Impressum" description="Anbieterkennzeichnung von clever versichert: Anbieter, Erlaubnis, Vermittlerregister, Aufsicht, Schlichtungsstellen." noindex>
+  <section class="section">
+    <div class="container prose">
+      <Breadcrumb items={[{ label: "Impressum" }]} />
+      <h1>Impressum</h1>
+      <p>
+        <PlaceholderBadge force /> Die Angaben auf dieser Seite werden nach juristischer Prüfung ergänzt. Bis dahin sind sie Platzhalter.
+      </p>
+
+      <LegalBlock
+        title="Anbieter"
+        rows={[
+          { label: "Firma und Rechtsform", value: "TODO: Firma, Rechtsform" },
+          { label: "Anschrift", value: "TODO: Straße, PLZ Ort" },
+          { label: "Vertretungsberechtigte", value: "TODO: Name(n)" },
+        ]}
+      />
+
+      <LegalBlock
+        title="Kontakt"
+        rows={[
+          { label: "Telefon", value: CONTACT_PHONE },
+          { label: "E-Mail", value: CONTACT_MAIL },
+        ]}
+      />
+
+      <LegalBlock
+        title="Register"
+        rows={[
+          { label: "Handelsregister", value: "TODO: Registergericht und Nummer, falls vorhanden" },
+          { label: "Umsatzsteuer-ID", value: "TODO: falls vorhanden" },
+        ]}
+      />
+
+      <LegalBlock
+        title="Tätigkeit und Erlaubnis"
+        rows={[
+          { label: "Tätigkeit", value: "TODO: Versicherungsmakler mit Erlaubnis nach § 34d Abs. 1 GewO oder Bezeichnung der Tätigkeit für die CLARUS AG, Augsburg" },
+          { label: "Vermittlerregister", value: "TODO: Registernummer D-XXXX-XXXXX-XX" },
+          { label: "Register", value: "Deutscher Industrie- und Handelskammertag (DIHK) e. V., Vermittlerregister", href: "https://www.vermittlerregister.info" },
+          { label: "Erlaubnisbehörde", value: "TODO: zuständige IHK mit Anschrift" },
+        ]}
+      />
+
+      <LegalBlock title="Berufsrechtliche Regelungen">
+        <ul>
+          <li><a href="https://www.gesetze-im-internet.de/gewo/__34d.html" rel="noopener">§ 34d Gewerbeordnung (GewO)</a></li>
+          <li><a href="https://www.gesetze-im-internet.de/vvg_2008/" rel="noopener">§§ 59 bis 68 Versicherungsvertragsgesetz (VVG)</a></li>
+          <li><a href="https://www.gesetze-im-internet.de/versvermv/" rel="noopener">Versicherungsvermittlungsverordnung (VersVermV)</a></li>
+        </ul>
+      </LegalBlock>
+
+      <LegalBlock
+        title="Beteiligungen"
+        rows={[{ label: "Angaben nach § 15 VersVermV", value: "TODO: Beteiligungen über 10 % in beide Richtungen" }]}
+      />
+
+      <LegalBlock title="Schlichtungsstellen">
+        <ul>
+          <li>Versicherungsombudsmann e. V., Postfach 08 06 32, 10006 Berlin, <a href="https://www.versicherungsombudsmann.de" rel="noopener">versicherungsombudsmann.de</a> <PlaceholderBadge force /></li>
+          <li>Ombudsmann Private Kranken- und Pflegeversicherung, Postfach 06 02 22, 10052 Berlin, <a href="https://www.pkv-ombudsmann.de" rel="noopener">pkv-ombudsmann.de</a> <PlaceholderBadge force /></li>
+        </ul>
+        <p class="muted">Anschriften werden vor dem Go-live geprüft. Ein Link zur EU-Plattform für Online-Streitbeilegung entfällt; sie wurde 2025 eingestellt. <PlaceholderBadge force /></p>
+      </LegalBlock>
+
+      <LegalBlock title="Verantwortlich für Inhalte" rows={[{ label: "Name und Anschrift", value: "TODO: Name, Straße, PLZ Ort" }]} />
+
+      <Cta />
+    </div>
+  </section>
+</BaseLayout>

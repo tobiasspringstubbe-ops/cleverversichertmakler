@@ -1,0 +1,135 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import Cta from "../../components/Cta.astro";
+import { species } from "../../data";
+
+const articles = (await getCollection("wissen")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const speciesName = (id: string) => species.find((s) => s.id === id)?.name ?? id;
+---
+
+<BaseLayout
+  title="Wissen: Ratgeber zur Tierkrankenversicherung"
+  description="Ratgeber zu Tierarztkosten, GOT, OP-Schutz und Vollschutz, Wartezeiten, Vorerkrankungen und typischen Erkrankungen von Hund, Katze und Pferd."
+>
+  <section class="section">
+    <div class="container">
+      <Breadcrumb items={[{ label: "Wissen" }]} />
+      <h1>Wissen</h1>
+      <p>Kurze Ratgeber ohne Werbung: was der Tierarzt kostet, wo Tarife Grenzen haben und was das für dein Tier bedeutet.</p>
+
+      <div class="filter" role="group" aria-label="Nach Tierart filtern" data-wissen-filter>
+        <button type="button" class="chip filter__chip" data-filter="alle" aria-pressed="true">Alle</button>
+        {species.map((s) => <button type="button" class="chip filter__chip" data-filter={s.id} aria-pressed="false">{s.name}</button>)}
+      </div>
+
+      <ul class="article-list" data-wissen-list>
+        {
+          articles.map((a) => (
+            <li class="article-card card card--paper" data-tierarten={a.data.tierarten.join(" ")}>
+              <p class="article-card__meta">{a.data.tierarten.map(speciesName).join(", ")}</p>
+              <h2 class="article-card__title">
+                <a href={`/wissen/${a.id}`}>{a.data.title}</a>
+              </h2>
+              <p class="article-card__desc">{a.data.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="filter__empty" data-wissen-empty hidden>Zu dieser Tierart gibt es noch keinen Artikel.</p>
+      <Cta />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { getSpecies } from "../../lib/species-client";
+
+  const group = document.querySelector<HTMLElement>("[data-wissen-filter]");
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-wissen-list] [data-tierarten]"));
+  const empty = document.querySelector<HTMLElement>("[data-wissen-empty]");
+
+  function apply(filter: string): void {
+    let visible = 0;
+    items.forEach((item) => {
+      const show = filter === "alle" || (item.dataset.tierarten ?? "").split(" ").includes(filter);
+      item.hidden = !show;
+      if (show) visible += 1;
+    });
+    group?.querySelectorAll<HTMLButtonElement>("[data-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filter === filter)));
+    if (empty) empty.hidden = visible > 0;
+  }
+
+  group?.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-filter]");
+    if (button?.dataset.filter) apply(button.dataset.filter);
+  });
+
+  const initial = getSpecies();
+  if (initial) apply(initial);
+</script>
+
+<style>
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .filter__chip {
+    min-height: var(--touch-min);
+    padding-inline: var(--space-4);
+    cursor: pointer;
+  }
+
+  .filter__chip[aria-pressed="true"] {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--paper);
+  }
+
+  .article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .article-card {
+    max-width: none;
+  }
+
+  .article-card__meta {
+    margin-bottom: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .article-card__title {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .article-card__title a {
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .article-card__title a:hover {
+    text-decoration: underline;
+  }
+
+  .article-card__desc {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 600px) {
+    .article-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

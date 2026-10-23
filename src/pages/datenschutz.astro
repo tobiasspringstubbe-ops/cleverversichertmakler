@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import LegalBlock from "../components/LegalBlock.astro";
+import PlaceholderBadge from "../components/PlaceholderBadge.astro";
+import Cta from "../components/Cta.astro";
+---
+
+<BaseLayout title="Datenschutzerklärung" description="Wie clever versichert mit deinen Daten umgeht: Hosting, Server-Logs, Kontaktformular, WhatsApp, lokale Speicherung, deine Rechte." noindex>
+  <section class="section">
+    <div class="container prose">
+      <Breadcrumb items={[{ label: "Datenschutz" }]} />
+      <h1>Datenschutzerklärung</h1>
+      <p>
+        <PlaceholderBadge force /> Diese Seite zeigt die Struktur der Datenschutzerklärung. Die endgültigen Texte entstehen nach Festlegung von Hosting, Formular-Endpunkt und WhatsApp-Nutzung und werden juristisch geprüft.
+      </p>
+
+      <LegalBlock title="Verantwortlicher" rows={[{ label: "Verantwortlich im Sinne der DSGVO", value: "TODO: Name, Anschrift, E-Mail" }]} />
+
+      <LegalBlock
+        title="Hosting"
+        rows={[
+          { label: "Anbieter", value: "TODO: Hosting-Anbieter" },
+          { label: "Serverstandort", value: "TODO: Deutschland" },
+          { label: "Auftragsverarbeitung", value: "TODO: Vertrag zur Auftragsverarbeitung" },
+        ]}
+      />
+
+      <LegalBlock title="Server-Logs">
+        <p>Beim Aufruf der Seite speichert der Hosting-Anbieter technisch notwendige Daten wie IP-Adresse, Zeitpunkt, aufgerufene Seite und Browser in Server-Logs. Zweck ist der sichere Betrieb der Website.</p>
+        <p>Speicherdauer: <span>TODO: Dauer</span> <PlaceholderBadge force /></p>
+      </LegalBlock>
+
+      <LegalBlock title="Kontaktformular, E-Mail, Telefon">
+        <p>Das Kontaktformular verschickt selbst keine Daten. Es erzeugt eine Nachricht, die du per WhatsApp oder E-Mail an uns sendest. Deine Angaben nutzen wir ausschließlich, um Tarife zu prüfen und dir ein Angebot zu machen. An einen Versicherer geben wir sie nur weiter, wenn das für ein Angebot nötig ist.</p>
+        <p>Rechtsgrundlage: <span>TODO: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung)</span> <PlaceholderBadge force /></p>
+        <p>Speicherdauer: <span>TODO</span> <PlaceholderBadge force /></p>
+        <p>Formular-Endpunkt: <span>TODO: nur relevant, wenn ein CRM-Webhook eingerichtet wird</span> <PlaceholderBadge force /></p>
+      </LegalBlock>
+
+      <LegalBlock title="WhatsApp">
+        <p>WhatsApp ist ein Dienst von Meta Platforms Ireland Limited. Wenn du uns per WhatsApp schreibst, werden Daten an Meta übertragen, auch in Länder außerhalb der EU. Wir nutzen ein WhatsApp-Business-Konto. Wenn du das nicht möchtest, erreichst du uns genauso per E-Mail oder Telefon.</p>
+        <p><PlaceholderBadge force /> Formulierung vom Datenschutz-Generator oder Anwalt bestätigen lassen.</p>
+      </LegalBlock>
+
+      <LegalBlock title="Lokale Speicherung im Browser">
+        <p>Die Website merkt sich im Browser (localStorage) deine Tierwahl und den gewählten Farbmodus. Das ist technisch notwendig, damit die Seite deine Auswahl behält. Es findet kein Tracking statt, und diese Daten verlassen deinen Browser nicht.</p>
+      </LegalBlock>
+
+      <LegalBlock title="Keine Cookies, keine Analyse-Tools">
+        <p>Diese Website setzt keine Cookies und nutzt keine Analyse- oder Werbetools. Deshalb gibt es keinen Cookie-Banner. Alle Schriften und Bilder liegen auf unserem Server; es werden keine Inhalte von fremden Servern geladen.</p>
+        <p><PlaceholderBadge force /> Bestätigen lassen, sobald Hosting und Formular-Endpunkt feststehen.</p>
+      </LegalBlock>
+
+      <LegalBlock
+        title="Deine Rechte"
+        rows={[
+          { label: "Betroffenenrechte", value: "TODO: Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch" },
+          { label: "Beschwerderecht", value: "TODO: zuständige Aufsichtsbehörde" },
+          { label: "Datenschutzbeauftragter", value: "TODO: falls erforderlich" },
+        ]}
+      />
+
+      <Cta />
+    </div>
+  </section>
+</BaseLayout>
