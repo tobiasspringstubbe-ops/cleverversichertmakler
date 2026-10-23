@@ -37,3 +37,8 @@ Voraussetzung: Node.js ab 22.23.4, empfohlen die aktuelle LTS-Version 24.
 - Bildmarke neu erzeugen nach Änderung an `public/brand/smiley.svg`: einmalig `npx playwright install chromium`, dann `npm run brand`.
 - Erstinformation als PDF aus der Seite erzeugen: `npm run build`, dann `npm run pdf`, dann erneut `npm run build`.
 - Der Markenname bleibt überall „clever versichert“; die Domain erscheint nirgends als Markenname.
+
+## Lizenzen
+
+- Schrift Poppins: SIL Open Font License, über `@fontsource/poppins`.
+- Tiersymbole Hund, Katze, Pferd: Phosphor Icons, MIT-Lizenz, Copyright 2023 Phosphor Icons. Alle anderen Icons sind eigene Zeichnungen.

@@ -1,8 +1,15 @@
 ---
 /**
- * Eigene Linien-Icons als Inline-SVG, Strichstärke 2.2, runde Enden.
- * Dekorativ: aria-hidden. Quelle: BRIEF.md Abschnitt 3.
+ * Icons als Inline-SVG, dekorativ (aria-hidden).
+ * Hund, Katze, Pferd: gefüllte Silhouetten aus Phosphor Icons (MIT-Lizenz,
+ * Copyright 2023 Phosphor Icons, https://phosphoricons.com), Vorgabe Tobias.
+ * Alle anderen: eigene Linien-Icons, Strichstärke 2.2, runde Enden (BRIEF.md Abschnitt 3).
  */
+import dogSvg from "@phosphor-icons/core/assets/fill/dog-fill.svg?raw";
+import catSvg from "@phosphor-icons/core/assets/fill/cat-fill.svg?raw";
+import horseSvg from "@phosphor-icons/core/assets/fill/horse-fill.svg?raw";
+
+const pathOf = (svg: string): string => svg.match(/<path d="([^"]+)"/)?.[1] ?? "";
 export type IconName =
   | "hund"
   | "katze"
@@ -23,10 +30,16 @@ interface Props {
 
 const { name, class: className, size } = Astro.props;
 
+const filled: Partial<Record<IconName, string>> = {
+  hund: pathOf(dogSvg),
+  katze: pathOf(catSvg),
+  pferd: pathOf(horseSvg),
+};
+
 const paths: Record<IconName, string> = {
-  hund: "M8 5h8l3 5v5a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5v-5z M8 5 4 10v4 M16 5l4 5v4 M10 12h.01 M14 12h.01 M11 15.5h2",
-  katze: "M5 4l3 4h8l3-4v9a7 7 0 0 1-14 0z M10 13h.01 M14 13h.01 M2 14h4 M18 14h4",
-  pferd: "M4 20c0-6 2-10 6-12l3-5 2 4c3 1 5 4 5 8v5 M10 8c2 0 4 1 5 3 M14 10h.01",
+  hund: filled.hund ?? "",
+  katze: filled.katze ?? "",
+  pferd: filled.pferd ?? "",
   sprechblase: "M20 15a2 2 0 0 1-2 2H9l-5 4V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z",
   telefon: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2",
   mail: "M4 6h16v12H4z M4 7l8 6 8-6",
@@ -37,11 +50,12 @@ const paths: Record<IconName, string> = {
 };
 
 const style = size ? `width:${size}px;height:${size}px` : undefined;
+const isFilled = name in filled;
 ---
 
 <svg
-  class:list={["icon", className]}
-  viewBox="0 0 24 24"
+  class:list={["icon", { "icon--fill": isFilled }, className]}
+  viewBox={isFilled ? "0 0 256 256" : "0 0 24 24"}
   aria-hidden="true"
   focusable="false"
   style={style}

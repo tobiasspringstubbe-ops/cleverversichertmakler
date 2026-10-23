@@ -1,9 +1,10 @@
 ---
 /**
- * Kostenkarten aus costs.json: alle drei Tierarten untereinander mit eigener
- * Überschrift, je drei Karten im Drei-Spalten-Raster, mobil eine Spalte.
- * Danach der GOT-Hinweis. Quelle: BRIEF.md Abschnitt 7; Anordnung nach
- * Vorgabe von Tobias (siehe TODO.md).
+ * Drei Kostenkarten der gewählten Tierart aus costs.json plus GOT-Hinweis.
+ * Alle drei Sätze liegen im HTML; sichtbar ist nur der zur Tierart passende.
+ * Wichtig: data-for sitzt auf einem Wrapper ohne eigene Layout-Stile, sonst
+ * überschreibt ein scoped „display: grid“ das Ausblenden (siehe TODO.md).
+ * Quelle: BRIEF.md Abschnitt 4 und 7.
  */
 import PlaceholderBadge from "./PlaceholderBadge.astro";
 import { costs, species } from "../data";
@@ -14,14 +15,13 @@ const euro = (n: number) => n.toLocaleString("de-DE");
 <div class="cost-cards">
   {
     species.map((s) => (
-      <section class="cost-cards__group" aria-labelledby={`kosten-${s.id}`}>
-        <h3 class="cost-cards__heading" id={`kosten-${s.id}`}>{s.name}</h3>
+      <div data-for={s.id}>
         <div class="cost-cards__grid">
           {costs.karten
             .filter((k) => k.tierart === s.id)
             .map((k) => (
               <article class="card cost-card">
-                <h4 class="cost-card__title">{k.fall}</h4>
+                <h3 class="cost-card__title">{k.fall}</h3>
                 <p class="cost-card__value">
                   {euro(k.von)} bis {euro(k.bis)} €
                   <PlaceholderBadge value={k.quelle} />
@@ -30,7 +30,7 @@ const euro = (n: number) => n.toLocaleString("de-DE");
               </article>
             ))}
         </div>
-      </section>
+      </div>
     ))
   }
   <p class="cost-cards__got">
@@ -40,14 +40,6 @@ const euro = (n: number) => n.toLocaleString("de-DE");
 </div>
 
 <style>
-  .cost-cards__group + .cost-cards__group {
-    margin-top: var(--space-6);
-  }
-
-  .cost-cards__heading {
-    margin-bottom: var(--space-3);
-  }
-
   .cost-cards__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -61,7 +53,6 @@ const euro = (n: number) => n.toLocaleString("de-DE");
 
   .cost-card__title {
     font-size: 1.0625rem;
-    font-weight: 600;
     margin: 0 0 var(--space-2);
   }
 

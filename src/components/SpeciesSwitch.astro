@@ -98,9 +98,9 @@ const uid = `species-${size}-${Math.random().toString(36).slice(2, 7)}`;
     color: var(--paper);
   }
 
-  .species-switch--hero .species-switch__icon {
-    width: 36px;
-    height: 36px;
+  /* Icon-Größe über Variable, weil das SVG aus der Icon-Komponente stammt */
+  .species-switch--hero .species-switch__tile {
+    --icon-size: 36px;
   }
 
   .species-switch--compact .species-switch__tile {
@@ -109,9 +109,8 @@ const uid = `species-${size}-${Math.random().toString(36).slice(2, 7)}`;
     padding: var(--space-2) var(--space-3);
   }
 
-  .species-switch--compact .species-switch__icon {
-    width: 22px;
-    height: 22px;
+  .species-switch--compact .species-switch__tile {
+    --icon-size: 22px;
   }
 
   @media (min-width: 600px) {
@@ -124,9 +123,8 @@ const uid = `species-${size}-${Math.random().toString(36).slice(2, 7)}`;
       font-size: 1.125rem;
     }
 
-    .species-switch--hero .species-switch__icon {
-      width: 48px;
-      height: 48px;
+    .species-switch--hero .species-switch__tile {
+      --icon-size: 48px;
     }
   }
 </style>

@@ -130,4 +130,8 @@ Nicht automatisch geprüft: die Links auf gesetze-im-internet.de und vermittlerr
 
 ## Änderungen nach Abnahme
 
-- 23.10.2026, Kostenblock auf der Startseite: Auf Wunsch von Tobias zeigt der Block alle neun Kostenkarten in drei Gruppen mit eigener Überschrift (Hund, Katze, Pferd), je im Drei-Spalten-Raster, mobil eine Spalte. Abweichung vom Brief (Abschnitt 4, Punkt 3), wo der Block mit der Tierart wechselt. Die Überschrift lautet jetzt „Was dein Tier wirklich kosten kann“.
+- 23.10.2026, Kostenblock: zeigt wieder nur die Karten der gewählten Tierart, wie im Brief. Zwischenzeitlich waren alle neun Karten sichtbar; Ursache war ein Fehler im CSS (siehe unten), nicht die Umschaltung.
+- 23.10.2026, Fehler behoben: Das Ausblenden tierfremder Inhalte (`[data-for] { display: none }`) hatte eine niedrigere Spezifität als die scoped Komponentenregel `.cost-cards__grid { display: grid }`, deshalb waren alle drei Kartensätze sichtbar. Jetzt gilt `!important` für Aus- und Einblenden, und `data-for` sitzt nur noch auf Wrappern ohne eigene Layout-Stile. Die Qualitätssicherung in Schritt 7 hatte den Kostenblock nicht gezielt geprüft.
+- 23.10.2026, Hund als Standard: Ohne gespeicherte Wahl zeigt die Seite jetzt Hund statt der neutralen Fassung (Vorgabe Tobias; Brief Abschnitt 4 sah neutrale Texte vor). Die Wahl wird erst gespeichert, wenn jemand eine Kachel antippt.
+- 23.10.2026, Hero: Tierwahl, goldene Trennlinie und Einleitungssatz haben dieselbe Breite (volle Containerbreite); der Satz steht ab 1280 px in einer Zeile, darunter mit ausgeglichenem Umbruch (`text-wrap: balance`).
+- 23.10.2026, Tiersymbole: Hund, Katze und Pferd sind gefüllte Silhouetten aus Phosphor Icons (MIT) statt eigener Linien-Icons (Brief Abschnitt 3 sah eigene Linien-Icons vor). Lizenzhinweis in der README.

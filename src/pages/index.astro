@@ -34,11 +34,15 @@ const faqJsonLd = {
   <section class="hero">
     <div class="container">
       <h1>Für wen suchst du Schutz?</h1>
-      <SpeciesSwitch size="hero" />
-      <p class="hero__after" data-for="any">
-        Gut. Dann zeigen wir dir, was bei <SpeciesText hund="Hunden" katze="Katzen" pferd="Pferden" none="Tieren" /> wirklich teuer wird – und welche Tarife das abdecken.
-      </p>
-      <p class="hero__claim">{CLAIM}</p>
+      <div class="hero__choice">
+        <SpeciesSwitch size="hero" />
+        <div data-for="any">
+          <p class="hero__after">
+            Gut. Dann zeigen wir dir, was bei <SpeciesText hund="Hunden" katze="Katzen" pferd="Pferden" none="Tieren" /> wirklich teuer wird – und welche Tarife das abdecken.
+          </p>
+        </div>
+        <p class="hero__claim">{CLAIM}</p>
+      </div>
     </div>
   </section>
 
@@ -52,8 +56,7 @@ const faqJsonLd = {
 
   <section class="section" id="kosten">
     <div class="container">
-      <h2>Was dein Tier wirklich kosten kann</h2>
-      <p>Drei typische Fälle je Tierart mit Richtwerten. Die Spanne hängt von Praxis, Klinik und GOT-Satz ab.</p>
+      <h2>Was <SpeciesText hund="ein Hund" katze="eine Katze" pferd="ein Pferd" none="ein Tier" /> wirklich kosten kann</h2>
       <CostCards />
       <Cta />
     </div>
@@ -130,12 +133,19 @@ const faqJsonLd = {
     margin-bottom: var(--space-5);
   }
 
+  /* Tierwahl, Trennlinie und Einleitungssatz teilen sich die Containerbreite */
+  .hero__choice {
+    max-width: none;
+  }
+
   .hero__after {
+    max-width: none;
     margin-top: var(--space-5);
     font-size: 1.125rem;
     font-weight: 500;
     padding-top: var(--space-4);
     border-top: 2px solid var(--gold);
+    text-wrap: balance;
   }
 
   .hero__claim {

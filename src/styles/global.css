@@ -312,13 +312,18 @@ html[data-placeholder="false"] .placeholder-badge {
 }
 
 .icon {
-  width: 1.25em;
-  height: 1.25em;
+  width: var(--icon-size, 1.25em);
+  height: var(--icon-size, 1.25em);
   stroke: currentColor;
   fill: none;
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.icon--fill {
+  fill: currentColor;
+  stroke: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -334,10 +339,15 @@ html[data-placeholder="false"] .placeholder-badge {
   }
 }
 
-/* Tierabhängige Inhalte: nur die gewählte Fassung ist sichtbar */
+/*
+ * Tierabhängige Inhalte: nur die gewählte Fassung ist sichtbar.
+ * !important, weil scoped Komponentenstile (z. B. display: grid) sonst das
+ * Ausblenden überschreiben. data-for gehört deshalb auf einen Wrapper ohne
+ * eigene Layout-Stile; das Layout sitzt im Kindelement.
+ */
 
 [data-for] {
-  display: none;
+  display: none !important;
 }
 
 html:not([data-species]) [data-for="none"],
@@ -345,7 +355,7 @@ html[data-species] [data-for="any"],
 html[data-species="hund"] [data-for="hund"],
 html[data-species="katze"] [data-for="katze"],
 html[data-species="pferd"] [data-for="pferd"] {
-  display: revert;
+  display: revert !important;
 }
 
 /* Formulare */

@@ -102,8 +102,11 @@ const organization = {
           var species = param && /^(hund|katze|pferd)$/.test(param) ? param : null;
           if (species) localStorage.setItem("cv_species", species);
           else species = localStorage.getItem("cv_species");
-          if (species && /^(hund|katze|pferd)$/.test(species)) root.setAttribute("data-species", species);
-        } catch (e) {}
+          if (!species || !/^(hund|katze|pferd)$/.test(species)) species = "hund";
+          root.setAttribute("data-species", species);
+        } catch (e) {
+          root.setAttribute("data-species", "hund");
+        }
       })();
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(organization)} />
