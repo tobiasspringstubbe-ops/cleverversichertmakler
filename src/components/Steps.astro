@@ -1,0 +1,64 @@
+---
+/** „So läuft es“ in drei nummerierten Schritten. Quelle: BRIEF.md Abschnitt 7. */
+const steps = [
+  { titel: "Du erzählst uns von deinem Tier.", text: "Per WhatsApp, Formular oder Telefon – fünf Angaben reichen." },
+  { titel: "Wir prüfen die Tarife, die zu deinem Tier passen.", text: "Bedingungen, nicht nur Beiträge; du bekommst eine Empfehlung mit Begründung und eine Alternative." },
+  { titel: "Du entscheidest in Ruhe.", text: "Abschluss digital oder bei uns vor Ort; danach bleiben wir dein Ansprechpartner, auch bei Rechnungen und Streit mit dem Versicherer." },
+];
+---
+
+<ol class="steps">
+  {
+    steps.map((s, i) => (
+      <li class="steps__item card card--paper">
+        <span class="steps__num" aria-hidden="true">{i + 1}</span>
+        <h3 class="steps__title">{s.titel}</h3>
+        <p class="steps__text">{s.text}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-4);
+    counter-reset: steps;
+  }
+
+  .steps__item {
+    max-width: none;
+  }
+
+  .steps__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--paper);
+    font-weight: 700;
+    margin-bottom: var(--space-3);
+  }
+
+  .steps__title {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .steps__text {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 600px) {
+    .steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

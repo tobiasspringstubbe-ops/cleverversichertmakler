@@ -1,0 +1,110 @@
+---
+/**
+ * Tierschutz: Versprechen, Zähler, Partner als Text-Badges.
+ * Logos erst bei freigabe: true. Quelle: BRIEF.md Abschnitt 7.
+ */
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import { partners } from "../data";
+import { isPlaceholder } from "../config";
+
+interface Props {
+  /** Kurzfassung für die Startseite. */
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const showCounter = partners.zaehler.summe_euro !== null;
+---
+
+<div class="partners">
+  <p class="partners__promise">
+    {partners.versprechen}
+    <PlaceholderBadge value={partners.versprechen} />
+  </p>
+  {
+    showCounter && (
+      <p class="partners__counter">
+        <strong>{partners.zaehler.summe_euro?.toLocaleString("de-DE")} €</strong> gingen {partners.zaehler.jahr} an unsere Partnervereine.
+      </p>
+    )
+  }
+  <ul class="partners__list" aria-label="Partnervereine">
+    {
+      partners.partner.map((p) => {
+        const hasUrl = !isPlaceholder(p.url);
+        const showLogo = p.freigabe && p.logo;
+        return (
+          <li class="partners__badge">
+            {showLogo && <img src={p.logo} alt="" width="80" height="40" loading="lazy" />}
+            {hasUrl ? (
+              <a href={p.url} rel="noopener">{p.name}</a>
+            ) : (
+              <span>{p.name}</span>
+            )}
+            {!isPlaceholder(p.ort) && <span class="partners__ort">{p.ort}</span>}
+            <PlaceholderBadge value={p.name} />
+          </li>
+        );
+      })
+    }
+  </ul>
+  {
+    compact ? (
+      <p>Vermittelter Vertrag, fester Betrag, Auszahlung an den Verein, den du wählst. <PlaceholderBadge force /></p>
+    ) : (
+      <div class="partners__how">
+        <h3>So funktioniert es</h3>
+        <ol>
+          <li>Du schließt über uns einen Vertrag ab.</li>
+          <li>Ein fester Betrag je Vertrag geht in den Tierschutz-Topf.</li>
+          <li>Das Geld geht an den Partnerverein, den du wählst.</li>
+        </ol>
+        <p class="muted">
+          <PlaceholderBadge force /> Betrag und Auszahlungsmodell sind noch nicht bestätigt.
+        </p>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .partners__promise {
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  .partners__counter strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .partners__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .partners__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--touch-min);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper);
+    max-width: none;
+  }
+
+  .partners__ort {
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+  }
+
+  .partners__how ol {
+    padding-left: 1.2em;
+  }
+</style>

@@ -1,0 +1,17 @@
+---
+/**
+ * Text, der mit der Tierart wechselt. Jede Variante liegt im HTML und wird
+ * per CSS über html[data-species] ein- oder ausgeblendet; ohne Wahl
+ * erscheint die neutrale Fassung.
+ */
+interface Props {
+  hund: string;
+  katze: string;
+  pferd: string;
+  none: string;
+}
+
+const { hund, katze, pferd, none } = Astro.props;
+---
+
+<span data-for="hund">{hund}</span><span data-for="katze">{katze}</span><span data-for="pferd">{pferd}</span><span data-for="none">{none}</span>

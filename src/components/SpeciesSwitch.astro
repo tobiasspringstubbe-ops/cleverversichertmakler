@@ -1,0 +1,132 @@
+---
+/**
+ * Tierwahl: drei Kacheln Hund, Katze, Pferd als Radiogruppe.
+ * Aktive Kachel in --navy mit weißem Icon. Die Wahl gilt global.
+ * Quelle: BRIEF.md Abschnitt 3 und 4.
+ */
+import Icon from "./Icon.astro";
+import { species } from "../data";
+
+interface Props {
+  size?: "hero" | "compact";
+  label?: string;
+}
+
+const { size = "hero", label = "Tierart wählen" } = Astro.props;
+const uid = `species-${size}-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<div class:list={["species-switch", `species-switch--${size}`]} role="radiogroup" aria-label={label} data-species-switch id={uid}>
+  {
+    species.map((s) => (
+      <button type="button" class="species-switch__tile" role="radio" aria-checked="false" data-species-value={s.id}>
+        <Icon name={s.icon} class="species-switch__icon" />
+        <span>{s.name}</span>
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  import { getSpecies, isSpeciesId, onSpeciesChange, setSpecies } from "../lib/species-client";
+
+  function sync(group: HTMLElement, current: string | null): void {
+    group.querySelectorAll<HTMLButtonElement>("[data-species-value]").forEach((tile) => {
+      const active = tile.dataset.speciesValue === current;
+      tile.setAttribute("aria-checked", String(active));
+      tile.tabIndex = active || (!current && tile === group.firstElementChild) ? 0 : -1;
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-species-switch]").forEach((group) => {
+    const tiles = Array.from(group.querySelectorAll<HTMLButtonElement>("[data-species-value]"));
+    sync(group, getSpecies());
+    onSpeciesChange((value) => sync(group, value));
+
+    tiles.forEach((tile, index) => {
+      tile.addEventListener("click", () => {
+        const value = tile.dataset.speciesValue;
+        if (isSpeciesId(value)) setSpecies(value);
+      });
+      tile.addEventListener("keydown", (event) => {
+        let target: number | null = null;
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") target = (index + 1) % tiles.length;
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") target = (index - 1 + tiles.length) % tiles.length;
+        if (target === null) return;
+        event.preventDefault();
+        const next = tiles[target];
+        if (!next) return;
+        next.focus();
+        const value = next.dataset.speciesValue;
+        if (isSpeciesId(value)) setSpecies(value);
+      });
+    });
+  });
+</script>
+
+<style>
+  .species-switch {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .species-switch__tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 96px;
+    padding: var(--space-3);
+    border: 2px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--paper);
+    color: var(--navy);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--duration) var(--ease), border-color var(--duration) var(--ease), color var(--duration) var(--ease);
+  }
+
+  .species-switch__tile:hover {
+    border-color: var(--slate);
+  }
+
+  .species-switch__tile[aria-checked="true"] {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--paper);
+  }
+
+  .species-switch--hero .species-switch__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .species-switch--compact .species-switch__tile {
+    min-height: var(--touch-min);
+    flex-direction: row;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .species-switch--compact .species-switch__icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (min-width: 600px) {
+    .species-switch--hero {
+      gap: var(--space-4);
+    }
+
+    .species-switch--hero .species-switch__tile {
+      min-height: 128px;
+      font-size: 1.125rem;
+    }
+
+    .species-switch--hero .species-switch__icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+</style>

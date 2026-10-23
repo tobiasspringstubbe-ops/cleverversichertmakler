@@ -1,0 +1,75 @@
+---
+/**
+ * Block für Pflichtseiten: Titel, Zeilen aus Beschriftung und Wert,
+ * Platzhalter-Badge bei TODO-Werten. Quelle: BRIEF.md Abschnitt 8.
+ */
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+
+interface Row {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  rows?: Row[];
+  id?: string;
+}
+
+const { title, rows = [], id } = Astro.props;
+---
+
+<section class="legal" id={id}>
+  <h2>{title}</h2>
+  {
+    rows.length > 0 && (
+      <dl class="legal__rows">
+        {rows.map((r) => (
+          <div class="legal__row">
+            <dt>{r.label}</dt>
+            <dd>
+              {r.href ? <a href={r.href} rel="noopener">{r.value}</a> : r.value}
+              <PlaceholderBadge value={r.value} />
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+  <slot />
+</section>
+
+<style>
+  .legal {
+    margin-bottom: var(--space-6);
+  }
+
+  .legal__rows {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  .legal__row {
+    display: grid;
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .legal__row dt {
+    font-weight: 600;
+  }
+
+  .legal__row dd {
+    margin: 0;
+  }
+
+  @media (min-width: 600px) {
+    .legal__row {
+      grid-template-columns: 220px 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

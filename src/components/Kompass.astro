@@ -1,0 +1,46 @@
+---
+/**
+ * Tier-Kompass als Insel: Eingaben links, Ranking rechts (ab 900 px),
+ * mobil gestapelt. Ohne Tierwahl die drei Kacheln und ein Satz.
+ * Quelle: BRIEF.md Abschnitt 5.
+ */
+import "../styles/kompass.css";
+import SpeciesSwitch from "./SpeciesSwitch.astro";
+import { PLACEHOLDER_MODE } from "../config";
+
+interface Props {
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
+---
+
+<div class="kompass" data-kompass data-preview={preview ? "true" : "false"} data-placeholder={PLACEHOLDER_MODE ? "true" : "false"}>
+  <div data-for="none">
+    <div class="kompass__empty card">
+      <p class="kompass__empty-text">Wähle dein Tier, dann sortieren wir die Tarife für dich.</p>
+      <SpeciesSwitch size="compact" label="Tierart für den Kompass wählen" />
+    </div>
+  </div>
+  <div data-for="any">
+    <div class:list={["kompass__body", { "kompass__body--full": !preview }]}>
+      <form class="kompass__inputs card" data-kompass-inputs aria-label="Angaben zu deinem Tier" novalidate></form>
+      <div class="kompass__results" data-kompass-results aria-live="polite"></div>
+    </div>
+  </div>
+  <noscript>
+    <p class="card">Der Tier-Kompass braucht JavaScript. Die Kriterien stehen weiter unten auf dieser Seite, und du kannst uns jederzeit direkt schreiben.</p>
+  </noscript>
+</div>
+
+<script>
+  import { mountKompass } from "../lib/kompass/ui";
+
+  document.querySelectorAll<HTMLElement>("[data-kompass]").forEach(mountKompass);
+</script>
+
+<style>
+  .kompass__empty-text {
+    font-weight: 500;
+  }
+</style>

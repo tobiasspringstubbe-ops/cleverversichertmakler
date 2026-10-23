@@ -1,0 +1,77 @@
+---
+/**
+ * Drei Kostenkarten je Tierart aus costs.json plus GOT-Hinweis.
+ * Quelle: BRIEF.md Abschnitt 4 und 7.
+ */
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import { costs, species } from "../data";
+
+const euro = (n: number) => n.toLocaleString("de-DE");
+---
+
+<div class="cost-cards">
+  {
+    species.map((s) => (
+      <div class="cost-cards__grid" data-for={s.id}>
+        {costs.karten
+          .filter((k) => k.tierart === s.id)
+          .map((k) => (
+            <article class="card cost-card">
+              <h3 class="cost-card__title">{k.fall}</h3>
+              <p class="cost-card__value">
+                {euro(k.von)} bis {euro(k.bis)} €
+                <PlaceholderBadge value={k.quelle} />
+              </p>
+              <p class="cost-card__note">{k.einordnung}</p>
+            </article>
+          ))}
+      </div>
+    ))
+  }
+  <div class="cost-cards__empty card" data-for="none">
+    <p>Wähle oben dein Tier. Dann zeigen wir dir drei typische Fälle mit Richtwerten.</p>
+  </div>
+  <p class="cost-cards__got">
+    {costs.got_hinweis}
+    <PlaceholderBadge value={`TODO: ${costs.got_todo}`} />
+  </p>
+</div>
+
+<style>
+  .cost-cards__grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .cost-card__title {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .cost-card__value {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+
+  .cost-card__note {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .cost-cards__got {
+    margin-top: var(--space-5);
+    font-size: 0.9375rem;
+    color: var(--ink-muted);
+  }
+
+  .cost-cards__empty p {
+    margin: 0;
+  }
+
+  @media (min-width: 600px) {
+    .cost-cards__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

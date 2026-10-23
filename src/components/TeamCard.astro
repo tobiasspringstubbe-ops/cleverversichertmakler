@@ -1,0 +1,164 @@
+---
+/**
+ * Teamkarte: Foto oder Initialen-Kreis, Name, Rolle, Statement, Hintergrund,
+ * Tier, drei Kontaktbuttons. Quelle: BRIEF.md Abschnitt 7.
+ */
+import Icon from "./Icon.astro";
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import type { TeamMember } from "../data/schema";
+import { isPlaceholder } from "../config";
+
+interface Props {
+  member: TeamMember;
+}
+
+const { member } = Astro.props;
+const initials = isPlaceholder(member.name)
+  ? "?"
+  : member.name
+      .split(/\s+/)
+      .map((p) => p[0] ?? "")
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+const hasPhoto = !isPlaceholder(member.foto);
+const tel = isPlaceholder(member.telefon) ? null : `tel:${member.telefon.replace(/[^\d+]/g, "")}`;
+const mail = isPlaceholder(member.mail) ? null : `mailto:${member.mail}`;
+const wa = isPlaceholder(member.whatsapp) ? null : `https://wa.me/${member.whatsapp.replace(/\D/g, "")}`;
+---
+
+<article class="team-card card card--paper">
+  <div class="team-card__head">
+    {
+      hasPhoto ? (
+        <img class="team-card__photo" src={member.foto} alt={`Porträt von ${member.name}`} width="300" height="400" loading="lazy" />
+      ) : (
+        <div class="team-card__initials" aria-hidden="true">{initials}</div>
+      )
+    }
+    <div>
+      <h3 class="team-card__name">
+        {member.name}
+        <PlaceholderBadge value={member.name} />
+      </h3>
+      <p class="team-card__role">
+        {member.rolle}
+        <PlaceholderBadge value={member.rolle} />
+      </p>
+    </div>
+  </div>
+  <blockquote class="team-card__quote">
+    „{member.statement}“
+    <PlaceholderBadge value={member.statement} />
+  </blockquote>
+  <ul class="team-card__facts">
+    {
+      member.hintergrund.map((h) => (
+        <li>
+          {h}
+          <PlaceholderBadge value={h} />
+        </li>
+      ))
+    }
+  </ul>
+  <p class="team-card__pet">
+    Mit im Team: {member.tier}
+    <PlaceholderBadge value={member.tier} />
+  </p>
+  <div class="team-card__actions">
+    <a class="button button--secondary" href={tel ?? "#"} aria-disabled={tel ? undefined : "true"}>
+      <Icon name="telefon" /> Anrufen
+    </a>
+    <a class="button button--secondary" href={mail ?? "#"} aria-disabled={mail ? undefined : "true"}>
+      <Icon name="mail" /> Mail
+    </a>
+    <a class="button button--secondary" href={wa ?? "#"} aria-disabled={wa ? undefined : "true"} target={wa ? "_blank" : undefined} rel={wa ? "noopener" : undefined}>
+      <Icon name="sprechblase" /> WhatsApp
+    </a>
+  </div>
+  {(!tel || !mail || !wa) && <p class="team-card__todo"><PlaceholderBadge force /> Kontaktdaten folgen.</p>}
+</article>
+
+<style>
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: none;
+  }
+
+  .team-card__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .team-card__photo,
+  .team-card__initials {
+    flex: none;
+    width: 72px;
+    height: 96px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .team-card__initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--slate);
+    color: var(--paper);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .team-card__name {
+    margin-bottom: 2px;
+    font-size: 1.125rem;
+  }
+
+  .team-card__role {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .team-card__quote {
+    margin: 0;
+    padding-left: var(--space-3);
+    border-left: 3px solid var(--gold);
+    font-style: italic;
+  }
+
+  .team-card__facts {
+    margin: 0;
+    padding-left: 1.2em;
+    color: var(--ink-muted);
+  }
+
+  .team-card__pet {
+    margin: 0;
+  }
+
+  .team-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: auto;
+  }
+
+  .team-card__actions .button {
+    flex: 1 1 auto;
+    padding-inline: var(--space-3);
+  }
+
+  .team-card__actions [aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .team-card__todo {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+/**
+ * Ehrlichkeits-Block „Das zahlt keine Tierkrankenversicherung“.
+ * Quelle: BRIEF.md Abschnitt 7.
+ */
+import Cta from "./Cta.astro";
+
+const punkte = [
+  { titel: "Was dein Tier schon hat.", text: "Bestehende und bekannte Erkrankungen sind ausgeschlossen – deshalb lohnt der Abschluss früh." },
+  { titel: "Die ersten Wochen.", text: "Wartezeiten von meist 1 bis 3 Monaten, oft länger für bestimmte Eingriffe." },
+  { titel: "Alles über dem GOT-Satz des Tarifs.", text: "Rechnet der Tierarzt höher ab als der Tarif erstattet, zahlst du die Differenz." },
+  { titel: "Alles über der Jahreshöchstleistung.", text: "Ein Limit kann nach einer einzigen OP erreicht sein." },
+  { titel: "Was der Beitrag im Alter macht.", text: "Viele Tarife werden ab 7 Jahren deutlich teurer; manche kündigen nach Leistungsfällen." },
+];
+---
+
+<div class="honesty">
+  <h2>Das zahlt keine Tierkrankenversicherung</h2>
+  <p>Bevor wir über Tarife reden, sagen wir dir, wo jeder Tarif Grenzen hat.</p>
+  <ol class="honesty__list">
+    {
+      punkte.map((p) => (
+        <li>
+          <strong>{p.titel}</strong> {p.text}
+        </li>
+      ))
+    }
+  </ol>
+  <p>Darum lesen wir das Bedingungswerk, nicht die Werbung – und sagen dir vorher, was dein Tarif trägt.</p>
+  <Cta />
+</div>
+
+<style>
+  .honesty__list {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: honesty;
+    display: grid;
+    gap: var(--space-3);
+    margin-block: var(--space-5);
+  }
+
+  .honesty__list li {
+    counter-increment: honesty;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: var(--space-3);
+    align-items: start;
+    max-width: none;
+  }
+
+  .honesty__list li::before {
+    content: counter(honesty);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--mist);
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  .honesty__list strong {
+    display: block;
+  }
+</style>

@@ -1,0 +1,483 @@
+---
+/**
+ * Kontaktformular als Insel: validiert, baut die Nachricht und öffnet
+ * WhatsApp oder Mail. Die Seite verschickt selbst nichts; optional POST an
+ * FORM_ENDPOINT. Vorbefüllung per URL-Parameter. Quelle: BRIEF.md Abschnitt 6.
+ */
+import SpeciesSwitch from "./SpeciesSwitch.astro";
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import { species } from "../data";
+import { CONTACT_MAIL, ERREICHBARKEIT_TEXT, FORM_ENDPOINT, PLACEHOLDER_MODE, WHATSAPP_NUMBER } from "../config";
+
+const config = {
+  whatsapp: WHATSAPP_NUMBER.startsWith("TODO") ? "" : WHATSAPP_NUMBER.replace(/\D/g, ""),
+  mail: CONTACT_MAIL.startsWith("TODO") ? "" : CONTACT_MAIL,
+  endpoint: FORM_ENDPOINT,
+  erreichbarkeit: ERREICHBARKEIT_TEXT,
+  placeholder: PLACEHOLDER_MODE,
+  species: species.map((s) => ({ id: s.id, name: s.name, altersbaender: s.altersbaender, groessen: s.groessen, nutzungen: s.nutzungen })),
+};
+---
+
+<form class="contact-form" id="anfrage" data-contact-form novalidate aria-labelledby="anfrage-titel">
+  <script type="application/json" data-contact-config set:html={JSON.stringify(config)} />
+
+  <fieldset class="field" data-field="tier">
+    <legend class="field__label">Tierart</legend>
+    <SpeciesSwitch size="compact" label="Tierart für die Anfrage" />
+    <span class="field__error" data-error hidden></span>
+  </fieldset>
+
+  <div class="field" data-field="tiername">
+    <label class="field__label" for="f-tiername">Name des Tiers <span class="muted">(optional)</span></label>
+    <input class="input" id="f-tiername" name="tiername" type="text" maxlength="40" autocomplete="off" />
+  </div>
+
+  <fieldset class="field" data-field="status">
+    <legend class="field__label">Status</legend>
+    <div class="segmented">
+      <label class="segmented__item"><input type="radio" name="status" value="schon" /><span>schon bei mir</span></label>
+      <label class="segmented__item"><input type="radio" name="status" value="bald" /><span>kommt bald</span></label>
+    </div>
+    <span class="field__error" data-error hidden></span>
+  </fieldset>
+
+  <div class="field" data-field="alter">
+    <label class="field__label" for="f-alter">Alter</label>
+    <select class="input" id="f-alter" name="alter" required>
+      <option value="">Bitte wählen</option>
+    </select>
+    <span class="field__error" data-error hidden></span>
+  </div>
+
+  <div class="field" data-field="groesse" hidden>
+    <label class="field__label" for="f-groesse">Größe</label>
+    <select class="input" id="f-groesse" name="groesse">
+      <option value="">Bitte wählen</option>
+    </select>
+  </div>
+
+  <div class="field" data-field="nutzung" hidden>
+    <label class="field__label" for="f-nutzung">Nutzung</label>
+    <select class="input" id="f-nutzung" name="nutzung">
+      <option value="">Bitte wählen</option>
+    </select>
+  </div>
+
+  <div class="field" data-field="rasse">
+    <label class="field__label" for="f-rasse">Rasse oder Größe <span class="muted">(optional)</span></label>
+    <input class="input" id="f-rasse" name="rasse" type="text" maxlength="60" autocomplete="off" />
+  </div>
+
+  <fieldset class="field" data-field="vorerkrankungen">
+    <legend class="field__label">Vorerkrankungen</legend>
+    <div class="segmented">
+      <label class="segmented__item"><input type="radio" name="vorerkrankungen" value="nein" /><span>nein</span></label>
+      <label class="segmented__item"><input type="radio" name="vorerkrankungen" value="ja" /><span>ja</span></label>
+    </div>
+    <span class="field__error" data-error hidden></span>
+  </fieldset>
+
+  <div class="field" data-field="vorerkrankungenText" hidden>
+    <label class="field__label" for="f-vorerkrankungen-text">Welche?</label>
+    <textarea class="input" id="f-vorerkrankungen-text" name="vorerkrankungenText" rows="3" maxlength="300"></textarea>
+    <span class="field__hint">Maximal 300 Zeichen.</span>
+    <span class="field__error" data-error hidden></span>
+  </div>
+
+  <fieldset class="field" data-field="schutz">
+    <legend class="field__label">Gewünschter Schutz</legend>
+    <div class="segmented">
+      <label class="segmented__item"><input type="radio" name="schutz" value="op" /><span>OP-Schutz</span></label>
+      <label class="segmented__item"><input type="radio" name="schutz" value="voll" /><span>Vollschutz</span></label>
+      <label class="segmented__item"><input type="radio" name="schutz" value="offen" /><span>weiß ich noch nicht</span></label>
+    </div>
+    <span class="field__error" data-error hidden></span>
+  </fieldset>
+
+  <input type="hidden" name="sb" value="" />
+
+  <div class="field" data-field="tarif">
+    <label class="field__label" for="f-tarif">Interesse an Tarif <span class="muted">(optional)</span></label>
+    <input class="input" id="f-tarif" name="tarif" type="text" maxlength="80" autocomplete="off" />
+  </div>
+
+  <div class="field" data-field="name">
+    <label class="field__label" for="f-name">Dein Name</label>
+    <input class="input" id="f-name" name="name" type="text" minlength="2" maxlength="80" autocomplete="name" required />
+    <span class="field__error" data-error hidden></span>
+  </div>
+
+  <fieldset class="field" data-field="kanal">
+    <legend class="field__label">Rückmeldung per</legend>
+    <div class="segmented">
+      <label class="segmented__item"><input type="radio" name="kanal" value="whatsapp" /><span>WhatsApp</span></label>
+      <label class="segmented__item"><input type="radio" name="kanal" value="telefon" /><span>Telefon</span></label>
+      <label class="segmented__item"><input type="radio" name="kanal" value="email" /><span>E-Mail</span></label>
+    </div>
+    <span class="field__error" data-error hidden></span>
+  </fieldset>
+
+  <div class="field" data-field="telefon" hidden>
+    <label class="field__label" for="f-telefon">Telefonnummer</label>
+    <input class="input" id="f-telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" />
+    <span class="field__error" data-error hidden></span>
+  </div>
+
+  <div class="field" data-field="email" hidden>
+    <label class="field__label" for="f-email">E-Mail</label>
+    <input class="input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" />
+    <span class="field__error" data-error hidden></span>
+  </div>
+
+  <div class="field" data-field="datenschutz">
+    <label class="checkbox">
+      <input type="checkbox" name="datenschutz" value="ja" />
+      <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen.</span>
+    </label>
+    <span class="field__error" data-error hidden></span>
+  </div>
+
+  <p class="contact-form__meta">
+    WhatsApp ist ein Dienst von Meta. Was dabei mit deinen Daten passiert, steht in der <a href="/datenschutz">Datenschutzerklärung</a>.
+    <PlaceholderBadge force />
+  </p>
+
+  <button class="button button--primary" type="submit">Anfrage senden</button>
+
+  <div class="contact-form__result" data-result hidden>
+    <p class="contact-form__success" data-success role="status" tabindex="-1"></p>
+    <p class="muted">Falls WhatsApp oder dein Mailprogramm nicht aufgeht: Hier ist dein Text zum Kopieren.</p>
+    <pre class="contact-form__message" data-message></pre>
+    <button class="button button--secondary" type="button" data-copy>Text kopieren</button>
+  </div>
+</form>
+
+<script>
+  import { getSpecies, onSpeciesChange, isSpeciesId, setSpecies } from "../lib/species-client";
+
+  type Option = { key: string; label: string };
+  type SpeciesConfig = { id: string; name: string; altersbaender: Option[]; groessen: Option[]; nutzungen: Option[] };
+  type Config = {
+    whatsapp: string;
+    mail: string;
+    endpoint: string;
+    erreichbarkeit: string;
+    placeholder: boolean;
+    species: SpeciesConfig[];
+  };
+
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+  const configEl = form?.querySelector<HTMLScriptElement>("[data-contact-config]");
+  if (form && configEl) init(form, JSON.parse(configEl.textContent ?? "{}") as Config);
+
+  function init(form: HTMLFormElement, config: Config): void {
+    const field = (name: string) => form.querySelector<HTMLElement>(`[data-field="${name}"]`);
+    const control = <T extends HTMLElement>(name: string) => form.elements.namedItem(name) as T | null;
+    const radioValue = (name: string): string => {
+      const checked = form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`);
+      return checked?.value ?? "";
+    };
+    const setRadio = (name: string, value: string) => {
+      const input = form.querySelector<HTMLInputElement>(`input[name="${name}"][value="${value}"]`);
+      if (input) input.checked = true;
+    };
+
+    function fillSelect(select: HTMLSelectElement, options: Option[], keep: string, extra?: Option): void {
+      const first = select.options[0]?.outerHTML ?? '<option value="">Bitte wählen</option>';
+      select.innerHTML = first;
+      const all = extra ? [...options, extra] : options;
+      for (const o of all) {
+        const opt = document.createElement("option");
+        opt.value = o.key;
+        opt.textContent = o.label;
+        select.append(opt);
+      }
+      select.value = all.some((o) => o.key === keep) ? keep : "";
+    }
+
+    function applySpecies(): void {
+      const id = getSpecies();
+      const sp = config.species.find((s) => s.id === id);
+      const alter = control<HTMLSelectElement>("alter");
+      const groesse = control<HTMLSelectElement>("groesse");
+      const nutzung = control<HTMLSelectElement>("nutzung");
+      const bald = radioValue("status") === "bald";
+      if (alter) fillSelect(alter, sp?.altersbaender ?? [], alter.value, bald ? { key: "unbekannt", label: "weiß ich noch nicht" } : undefined);
+      if (groesse) fillSelect(groesse, sp?.groessen ?? [], groesse.value);
+      if (nutzung) fillSelect(nutzung, sp?.nutzungen ?? [], nutzung.value);
+      const g = field("groesse");
+      const n = field("nutzung");
+      if (g) g.hidden = !(sp && sp.groessen.length > 0);
+      if (n) n.hidden = !(sp && sp.nutzungen.length > 0);
+    }
+
+    function applyConditionals(): void {
+      const v = field("vorerkrankungenText");
+      if (v) v.hidden = radioValue("vorerkrankungen") !== "ja";
+      const kanal = radioValue("kanal");
+      const t = field("telefon");
+      const e = field("email");
+      if (t) t.hidden = !(kanal === "whatsapp" || kanal === "telefon");
+      if (e) e.hidden = kanal !== "email";
+    }
+
+    function prefill(): void {
+      const p = new URLSearchParams(location.search);
+      const get = (k: string) => p.get(k) ?? "";
+      const alter = control<HTMLSelectElement>("alter");
+      const groesse = control<HTMLSelectElement>("groesse");
+      const nutzung = control<HTMLSelectElement>("nutzung");
+      if (alter && get("alter")) alter.value = get("alter");
+      if (groesse && get("groesse")) groesse.value = get("groesse");
+      if (nutzung && get("nutzung")) nutzung.value = get("nutzung");
+      const rasse = control<HTMLInputElement>("rasse");
+      if (rasse && get("rasse")) rasse.value = get("rasse").slice(0, 60);
+      if (["nein", "ja"].includes(get("vorerkrankungen"))) setRadio("vorerkrankungen", get("vorerkrankungen"));
+      if (["op", "voll"].includes(get("schutz"))) setRadio("schutz", get("schutz"));
+      const sb = control<HTMLInputElement>("sb");
+      if (sb && ["ohne", "mit"].includes(get("sb"))) sb.value = get("sb");
+      const tarif = control<HTMLInputElement>("tarif");
+      if (tarif && get("tarif")) tarif.value = get("tarif").slice(0, 80);
+      const tier = get("tier");
+      if (isSpeciesId(tier) && getSpecies() !== tier) setSpecies(tier);
+    }
+
+    function setError(name: string, message: string | null): void {
+      const wrap = field(name);
+      if (!wrap) return;
+      const err = wrap.querySelector<HTMLElement>("[data-error]");
+      const inputs = wrap.querySelectorAll<HTMLElement>("input, select, textarea, [role=radiogroup]");
+      if (!err) return;
+      const errId = `err-${name}`;
+      err.id = errId;
+      if (message) {
+        err.textContent = message;
+        err.hidden = false;
+        wrap.classList.add("field--invalid");
+        inputs.forEach((el) => {
+          el.setAttribute("aria-describedby", errId);
+          el.setAttribute("aria-invalid", "true");
+        });
+      } else {
+        err.textContent = "";
+        err.hidden = true;
+        wrap.classList.remove("field--invalid");
+        inputs.forEach((el) => {
+          el.removeAttribute("aria-describedby");
+          el.removeAttribute("aria-invalid");
+        });
+      }
+    }
+
+    function focusField(name: string): void {
+      const wrap = field(name);
+      const target = wrap?.querySelector<HTMLElement>("input:not([type=hidden]), select, textarea, button");
+      target?.focus();
+      wrap?.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+
+    function validate(): { ok: boolean; first: string | null } {
+      let first: string | null = null;
+      const fail = (name: string, message: string) => {
+        setError(name, message);
+        first ??= name;
+      };
+      const ok = (name: string) => setError(name, null);
+      const val = (name: string) => (control<HTMLInputElement>(name)?.value ?? "").trim();
+
+      if (!getSpecies()) fail("tier", "Bitte wähle dein Tier, damit wir die passenden Tarife prüfen können.");
+      else ok("tier");
+      if (!radioValue("status")) fail("status", "Bitte sag uns, ob dein Tier schon bei dir ist oder bald kommt.");
+      else ok("status");
+      if (!val("alter")) fail("alter", "Bitte gib das Alter an, damit wir den passenden Tarif prüfen können.");
+      else ok("alter");
+      const vorerkrankungen = radioValue("vorerkrankungen");
+      if (!vorerkrankungen) fail("vorerkrankungen", "Bitte sag uns, ob dein Tier Vorerkrankungen hat.");
+      else ok("vorerkrankungen");
+      if (vorerkrankungen === "ja" && !val("vorerkrankungenText")) fail("vorerkrankungenText", "Bitte beschreibe kurz, welche Vorerkrankungen bekannt sind.");
+      else ok("vorerkrankungenText");
+      if (!radioValue("schutz")) fail("schutz", "Bitte wähle, welchen Schutz du dir vorstellst. „Weiß ich noch nicht“ ist völlig in Ordnung.");
+      else ok("schutz");
+      if (val("name").length < 2) fail("name", "Bitte gib deinen Namen an, damit wir dich ansprechen können.");
+      else ok("name");
+      const kanal = radioValue("kanal");
+      if (!kanal) fail("kanal", "Bitte wähle, wie wir dich erreichen sollen.");
+      else ok("kanal");
+      if (kanal === "whatsapp" || kanal === "telefon") {
+        const tel = val("telefon");
+        const digits = tel.replace(/\D/g, "").length;
+        if (!/^[\d\s+]+$/.test(tel) || digits < 7) fail("telefon", "Bitte gib eine Telefonnummer mit mindestens 7 Ziffern an.");
+        else ok("telefon");
+      } else ok("telefon");
+      if (kanal === "email") {
+        const mail = val("email");
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) fail("email", "Bitte gib eine gültige E-Mail-Adresse an.");
+        else ok("email");
+      } else ok("email");
+      if (!control<HTMLInputElement>("datenschutz")?.checked) fail("datenschutz", "Bitte bestätige, dass du die Datenschutzerklärung gelesen hast.");
+      else ok("datenschutz");
+      return { ok: first === null, first };
+    }
+
+    function label(options: Option[], key: string): string {
+      return options.find((o) => o.key === key)?.label ?? key;
+    }
+
+    function buildMessage(): { text: string; tierart: string; kanal: string; kontakt: string } {
+      const id = getSpecies();
+      const sp = config.species.find((s) => s.id === id);
+      const val = (name: string) => (control<HTMLInputElement>(name)?.value ?? "").trim();
+      const tierart = sp?.name ?? "Tier";
+      const tiername = val("tiername");
+      const status = radioValue("status") === "bald" ? "kommt bald" : "schon bei mir";
+      const alterKey = val("alter");
+      const alter = alterKey === "unbekannt" ? "weiß ich noch nicht" : label(sp?.altersbaender ?? [], alterKey);
+      const extras = [val("rasse"), sp && val("groesse") ? label(sp.groessen, val("groesse")) : "", sp && val("nutzung") ? `Nutzung ${label(sp.nutzungen, val("nutzung"))}` : ""].filter(Boolean);
+      const rasse = extras.length ? extras.join(", ") : "keine Angabe";
+      const vorerkrankungen = radioValue("vorerkrankungen") === "ja" ? `ja: ${val("vorerkrankungenText")}` : "nein";
+      const schutzKey = radioValue("schutz");
+      const sb = val("sb");
+      let schutz = schutzKey === "op" ? "OP-Schutz" : schutzKey === "voll" ? "Vollschutz" : "offen";
+      if (schutzKey !== "offen" && sb) schutz += sb === "mit" ? ", mit Selbstbeteiligung" : ", ohne Selbstbeteiligung";
+      const tarif = val("tarif") || "offen";
+      const kanalKey = radioValue("kanal");
+      const kanal = kanalKey === "whatsapp" ? "WhatsApp" : kanalKey === "telefon" ? "Telefon" : "E-Mail";
+      const kontakt = kanalKey === "email" ? val("email") : val("telefon");
+      const text = [
+        "Hallo clever versichert,",
+        "ich interessiere mich für eine Tierkrankenversicherung.",
+        "",
+        `Tier: ${tierart}${tiername ? `, ${tiername}` : ""}`,
+        `Status: ${status}`,
+        `Alter: ${alter}`,
+        `Rasse/Größe: ${rasse}`,
+        `Vorerkrankungen: ${vorerkrankungen}`,
+        `Gewünschter Schutz: ${schutz}`,
+        `Interesse an: ${tarif}`,
+        "",
+        `Mein Name: ${val("name")}`,
+        `Rückmeldung bitte per: ${kanal} (${kontakt})`,
+      ].join("\n");
+      return { text, tierart, kanal, kontakt };
+    }
+
+    async function postToEndpoint(payload: Record<string, string>): Promise<void> {
+      if (!config.endpoint) return;
+      try {
+        await fetch(config.endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      } catch {
+        /* Der Kanal-Link bleibt der Weg; kein Datenverlust. */
+      }
+    }
+
+    form.addEventListener("input", applyConditionals);
+    form.addEventListener("change", (event) => {
+      const target = event.target as HTMLInputElement | null;
+      if (target?.name === "status") applySpecies();
+      applyConditionals();
+    });
+    onSpeciesChange(() => {
+      applySpecies();
+      setError("tier", null);
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const result = validate();
+      if (!result.ok) {
+        if (result.first) focusField(result.first);
+        return;
+      }
+      const message = buildMessage();
+      const kanalKey = radioValue("kanal");
+      const data: Record<string, string> = {};
+      new FormData(form).forEach((v, k) => {
+        if (typeof v === "string") data[k] = v;
+      });
+      data.tier = getSpecies() ?? "";
+      data.nachricht = message.text;
+      void postToEndpoint(data);
+
+      if (kanalKey === "whatsapp") {
+        window.open(`https://wa.me/${config.whatsapp}?text=${encodeURIComponent(message.text)}`, "_blank", "noopener");
+      } else {
+        const subject = `Anfrage Tierkrankenversicherung ${message.tierart}`;
+        location.href = `mailto:${config.mail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message.text)}`;
+      }
+
+      const resultBox = form.querySelector<HTMLElement>("[data-result]");
+      const success = form.querySelector<HTMLElement>("[data-success]");
+      const pre = form.querySelector<HTMLElement>("[data-message]");
+      if (success) {
+        success.textContent = `Deine Angaben sind drin. Wir melden uns per ${message.kanal}, meist innerhalb von ${config.erreichbarkeit}.`;
+        if (config.placeholder && config.erreichbarkeit.startsWith("TODO")) {
+          const badge = document.createElement("span");
+          badge.className = "placeholder-badge";
+          badge.textContent = "Platzhalter";
+          success.append(" ", badge);
+        }
+      }
+      if (pre) pre.textContent = message.text;
+      if (resultBox) {
+        resultBox.hidden = false;
+        resultBox.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        success?.focus();
+      }
+    });
+
+    form.querySelector<HTMLButtonElement>("[data-copy]")?.addEventListener("click", async (event) => {
+      const button = event.currentTarget as HTMLButtonElement;
+      const text = form.querySelector<HTMLElement>("[data-message]")?.textContent ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Kopiert";
+        setTimeout(() => (button.textContent = "Text kopieren"), 2000);
+      } catch {
+        button.textContent = "Bitte markieren und kopieren";
+      }
+    });
+
+    applySpecies();
+    prefill();
+    applySpecies();
+    applyConditionals();
+  }
+</script>
+
+<style>
+  .contact-form {
+    max-width: 640px;
+  }
+
+  .contact-form__meta {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .contact-form__result {
+    margin-top: var(--space-5);
+    padding: var(--space-4);
+    border-radius: var(--radius-card);
+    background: var(--mist);
+  }
+
+  .contact-form__success {
+    font-weight: 600;
+  }
+
+  .contact-form__success:focus {
+    outline: none;
+  }
+
+  .contact-form__message {
+    white-space: pre-wrap;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    padding: var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-button);
+    background: var(--paper);
+    margin: 0 0 var(--space-3);
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+/** Fragen als details/summary-Akkordeon aus faq.json. */
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import type { FaqItem } from "../data/schema";
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((item) => (
+      <details class="faq__item" id={`faq-${item.id}`}>
+        <summary class="faq__question">{item.frage}</summary>
+        <div class="faq__answer">
+          <p>
+            {item.antwort}
+            <PlaceholderBadge value={item.antwort} />
+            {item.todo && <PlaceholderBadge force />}
+          </p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    border-top: 1px solid var(--line);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 56px;
+    padding: var(--space-3) 0;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question::after {
+    content: "";
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border-right: 2.2px solid var(--slate);
+    border-bottom: 2.2px solid var(--slate);
+    transform: rotate(45deg);
+    transition: transform var(--duration) var(--ease);
+    margin-right: 4px;
+  }
+
+  .faq__item[open] .faq__question::after {
+    transform: rotate(225deg);
+  }
+
+  .faq__answer {
+    padding-bottom: var(--space-4);
+  }
+
+  .faq__answer p {
+    margin: 0;
+  }
+</style>

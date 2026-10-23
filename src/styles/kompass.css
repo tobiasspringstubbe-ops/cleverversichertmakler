@@ -1,0 +1,182 @@
+/* Tier-Kompass: Karten werden im Browser gerendert, deshalb globale Klassen. */
+
+.kompass__body {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.kompass__inputs {
+  align-self: start;
+}
+
+.rank-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.rank-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rank-card--unrated {
+  background: var(--unrated-bg);
+  border-color: transparent;
+}
+
+.rank-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.rank-card__place {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--paper);
+  font-weight: 700;
+}
+
+.rank-card--unrated .rank-card__place {
+  background: var(--unrated);
+}
+
+.rank-card__name {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.rank-card__tarif,
+.rank-card__score,
+.rank-card__pending,
+.rank-card__hint {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
+.rank-card__badge {
+  margin-left: auto;
+  padding: 4px 10px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--navy);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.rank-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.rank-card__chip {
+  min-height: 36px;
+  cursor: pointer;
+}
+
+.rank-card__chip[aria-expanded="true"] {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+.rank-card__panel[hidden] {
+  display: none;
+}
+
+.rank-panel {
+  padding: var(--space-4);
+  border-radius: 12px;
+  background: var(--mist);
+}
+
+.rank-panel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.rank-panel__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.rank-panel__value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.rank-panel__scale {
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.rank-panel__scale .chip {
+  min-height: 24px;
+  padding-inline: 8px;
+  margin-inline-end: 4px;
+}
+
+.rank-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.rank-card__price {
+  margin: 0;
+}
+
+.rank-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: auto;
+}
+
+.rank-card__stand {
+  color: var(--ink-muted);
+}
+
+.rank-more {
+  margin-top: var(--space-4);
+}
+
+.rank-note {
+  margin-top: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  max-width: none;
+}
+
+@media (min-width: 900px) {
+  .kompass__body--full {
+    grid-template-columns: 320px 1fr;
+    align-items: start;
+  }
+
+  .kompass__body--full .kompass__inputs {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-4));
+  }
+}
