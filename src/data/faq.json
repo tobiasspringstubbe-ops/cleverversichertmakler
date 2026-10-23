@@ -1,0 +1,44 @@
+[
+  {
+    "id": "kosten-beratung",
+    "frage": "Was kostet eure Beratung?",
+    "antwort": "Nichts extra. Wir erhalten eine Courtage vom Versicherer; der Beitrag ist derselbe wie beim Direktabschluss.",
+    "todo": "Formulierung an den Rechtsstatus anpassen."
+  },
+  {
+    "id": "vorerkrankung",
+    "frage": "Mein Tier hat schon eine Vorerkrankung – geht noch etwas?",
+    "antwort": "Die bestehende Erkrankung ist ausgeschlossen, alles andere bleibt versicherbar. Wir sagen dir vorher, welcher Versicherer dein Tier annimmt und mit welchem Ausschluss."
+  },
+  {
+    "id": "op-oder-voll",
+    "frage": "OP-Schutz oder Vollschutz?",
+    "antwort": "OP-Schutz deckt Operationen mit Vor- und Nachbehandlung, Vollschutz auch Diagnostik, Medikamente und oft Vorsorge. Für Katzen mit chronischen Risiken und für Pferde mit Lahmheitsdiagnostik ist der Unterschied groß."
+  },
+  {
+    "id": "got-satz",
+    "frage": "Was bedeutet GOT-Satz?",
+    "antwort": "Die Gebührenordnung erlaubt Tierärzten einen Spielraum. Erstattet dein Tarif nur den 2-fachen Satz, der Tierarzt rechnet aber 3-fach ab, zahlst du den Rest."
+  },
+  {
+    "id": "aelteres-tier",
+    "frage": "Mein Tier ist schon älter – lohnt sich das noch?",
+    "antwort": "Meist ja, solange ein Versicherer es aufnimmt. Wir prüfen Aufnahmegrenzen, Beiträge im Alter und sagen dir ehrlich, wenn Sparen die bessere Wahl ist."
+  },
+  {
+    "id": "sparen",
+    "frage": "Ich lege lieber 50 Euro im Monat zurück.",
+    "antwort": "Das sind 600 Euro im Jahr; eine einzige Not-OP kostet oft das Fünffache, und sie fragt nicht, wie lange du schon sparst. Wir rechnen beides mit dir durch."
+  },
+  {
+    "id": "antwortzeit",
+    "frage": "Wie schnell meldet ihr euch?",
+    "antwort": "TODO: Erreichbarkeit und realistische Antwortzeit eintragen."
+  },
+  {
+    "id": "nach-abschluss",
+    "frage": "Was passiert nach dem Abschluss?",
+    "antwort": "Wir bleiben Ansprechpartner: Rechnungen einreichen, Tarifwechsel, Streit mit dem Versicherer.",
+    "todo": "Umfang mit dem Team festlegen."
+  }
+]

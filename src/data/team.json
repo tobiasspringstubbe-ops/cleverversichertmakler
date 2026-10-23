@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tobias-springstubbe",
+    "name": "Tobias Springstubbe",
+    "rolle": "Berater Tierkrankenversicherung",
+    "statement": "TODO: ein Satz, warum du das machst",
+    "hintergrund": [
+      "In der Versicherungsberatung seit 2010",
+      "Schwerpunkt Tierkrankenversicherung in Kooperation mit Tierschutzvereinen",
+      "TODO: dritte Zeile"
+    ],
+    "tier": "TODO: eigenes Tier mit Name",
+    "foto": "TODO: public/img/team/tobias.webp (Hochformat 3:4, 800 px breit)",
+    "telefon": "TODO",
+    "mail": "TODO",
+    "whatsapp": "TODO"
+  },
+  {
+    "id": "platzhalter-2",
+    "name": "TODO: Name",
+    "rolle": "TODO",
+    "statement": "TODO",
+    "hintergrund": ["TODO", "TODO", "TODO"],
+    "tier": "TODO",
+    "foto": "TODO",
+    "telefon": "TODO",
+    "mail": "TODO",
+    "whatsapp": "TODO"
+  },
+  {
+    "id": "platzhalter-3",
+    "name": "TODO: Name",
+    "rolle": "TODO",
+    "statement": "TODO",
+    "hintergrund": ["TODO", "TODO", "TODO"],
+    "tier": "TODO",
+    "foto": "TODO",
+    "telefon": "TODO",
+    "mail": "TODO",
+    "whatsapp": "TODO"
+  }
+]

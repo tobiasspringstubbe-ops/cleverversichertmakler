@@ -1,0 +1,890 @@
+{
+  "stand": "2026-10-22",
+  "versicherer": [
+    {
+      "id": "barmenia",
+      "name": "Barmenia",
+      "tierarten": [
+        "hund",
+        "katze",
+        "pferd"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "pferd": {
+          "got": null,
+          "limit": null,
+          "kolik": null,
+          "lahm": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "nutzung": null,
+          "aufnahme": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "pferd": {
+          "op": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          },
+          "voll": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "hansemerkur",
+      "name": "HanseMerkur",
+      "tierarten": [
+        "hund",
+        "katze"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "allianz",
+      "name": "Allianz",
+      "tierarten": [
+        "hund",
+        "katze",
+        "pferd"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "pferd": {
+          "got": null,
+          "limit": null,
+          "kolik": null,
+          "lahm": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "nutzung": null,
+          "aufnahme": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "pferd": {
+          "op": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          },
+          "voll": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "uelzener",
+      "name": "Uelzener",
+      "tierarten": [
+        "hund",
+        "katze",
+        "pferd"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "pferd": {
+          "got": null,
+          "limit": null,
+          "kolik": null,
+          "lahm": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "nutzung": null,
+          "aufnahme": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "pferd": {
+          "op": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          },
+          "voll": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "agila",
+      "name": "Agila",
+      "tierarten": [
+        "hund",
+        "katze"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "helvetia",
+      "name": "Helvetia",
+      "tierarten": [
+        "hund",
+        "katze",
+        "pferd"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "pferd": {
+          "got": null,
+          "limit": null,
+          "kolik": null,
+          "lahm": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "nutzung": null,
+          "aufnahme": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "pferd": {
+          "op": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          },
+          "voll": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "dfv",
+      "name": "Deutsche Familienversicherung",
+      "tierarten": [
+        "hund",
+        "katze"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "gothaer",
+      "name": "Gothaer",
+      "tierarten": [
+        "hund",
+        "katze",
+        "pferd"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "pferd": {
+          "got": null,
+          "limit": null,
+          "kolik": null,
+          "lahm": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "nutzung": null,
+          "aufnahme": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "pferd": {
+          "op": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          },
+          "voll": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "da-direkt",
+      "name": "DA Direkt",
+      "tierarten": [
+        "hund",
+        "katze"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "petolo",
+      "name": "Petolo",
+      "tierarten": [
+        "hund",
+        "katze"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "hund": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        },
+        "katze": {
+          "got": null,
+          "limit": null,
+          "hered": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "alter": null,
+          "aufnahme": null,
+          "zahn": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "hund": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        },
+        "katze": {
+          "op": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          },
+          "voll": {
+            "u1": null,
+            "1-3": null,
+            "4-6": null,
+            "7-9": null,
+            "10+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    },
+    {
+      "id": "r-v",
+      "name": "R+V",
+      "tierarten": [
+        "pferd"
+      ],
+      "tarif": "TODO: Tarifname",
+      "werte": {
+        "pferd": {
+          "got": null,
+          "limit": null,
+          "kolik": null,
+          "lahm": null,
+          "kuend": null,
+          "warte": null,
+          "sb": null,
+          "nutzung": null,
+          "aufnahme": null,
+          "direkt": null
+        }
+      },
+      "preis": {
+        "pferd": {
+          "op": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          },
+          "voll": {
+            "u2": null,
+            "3-8": null,
+            "9-14": null,
+            "15+": null
+          }
+        }
+      },
+      "hinweis": "",
+      "quelle": "TODO: Bedingungswerk und Datum"
+    }
+  ]
+}

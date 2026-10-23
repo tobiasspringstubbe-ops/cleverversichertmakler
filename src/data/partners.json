@@ -1,0 +1,7 @@
+{
+  "versprechen": "TODO: z. B. „Für jeden vermittelten Vertrag gehen 10 Euro an unsere Partnervereine.“",
+  "zaehler": { "jahr": 2026, "summe_euro": null },
+  "partner": [
+    { "name": "TODO: Vereinsname", "ort": "TODO", "url": "TODO", "logo": null, "freigabe": false }
+  ]
+}

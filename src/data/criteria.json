@@ -1,0 +1,182 @@
+[
+  {
+    "key": "got",
+    "tierarten": ["hund", "katze"],
+    "name": "GOT-Satz",
+    "kurz": "GOT-Satz",
+    "werte": { "2": "bis 4-fach, auch im Notdienst", "1": "bis 3-fach", "0": "bis 2-fach oder weniger" },
+    "info": "Die Gebührenordnung für Tierärzte (GOT) legt für jede Leistung einen Grundpreis fest. Tierärzte dürfen davon ein Vielfaches berechnen, regulär bis zum 3-fachen Satz, im Notdienst bis zum 4-fachen Satz plus Notdienstgebühr. Erstattet ein Tarif nur bis zum 2-fachen Satz, zahlst du bei jeder höheren Rechnung die Differenz selbst. Gerade Notfälle wie eine Magendrehung oder ein Harnröhrenverschluss passieren oft nachts oder am Wochenende, also im Notdienst. TODO: Satz an der amtlichen GOT prüfen.",
+    "gewicht": 1
+  },
+  {
+    "key": "limit",
+    "tierarten": ["hund", "katze"],
+    "name": "Jahreshöchstleistung",
+    "kurz": "Jahreslimit",
+    "werte": { "2": "unbegrenzt", "1": "Limit ab 5.000 €", "0": "Limit unter 5.000 €" },
+    "info": "Viele Tarife deckeln die Erstattung pro Versicherungsjahr. Ein Limit unter 5.000 Euro kann nach einer einzigen Operation erreicht sein; eine Kreuzband-OP oder eine Fremdkörper-OP mit Klinikaufenthalt liegt schnell in dieser Größenordnung. Alles darüber zahlst du selbst, auch wenn im selben Jahr noch ein zweiter Fall kommt. Unbegrenzte Tarife nehmen dir dieses Risiko ab.",
+    "gewicht": 1
+  },
+  {
+    "key": "hered",
+    "tierarten": ["hund", "katze"],
+    "name": "Angeborene und rassetypische Erkrankungen",
+    "kurz": "HD, ED und Co.",
+    "werte": { "2": "mitversichert ohne Sonderwartezeit", "1": "mit Sonderwartezeit oder Zuschlag", "0": "ausgeschlossen" },
+    "info": "Hüftdysplasie (HD) und Ellbogendysplasie (ED) sind erblich mitbedingte Fehlentwicklungen der Gelenke, besonders bei großen Hunderassen. Patellaluxation betrifft eher kleine Rassen, Atemwegsprobleme die kurznasigen Rassen wie Mops und Französische Bulldogge. Bei Katzen zählen zum Beispiel erbliche Herz- und Nierenerkrankungen dazu. Viele Tarife schließen angeborene Erkrankungen ganz aus oder verlangen Sonderwartezeiten von mehreren Monaten. TODO: Quelle für Häufigkeit je Rasse ergänzen.",
+    "gewicht": 1
+  },
+  {
+    "key": "kuend",
+    "tierarten": ["hund", "katze"],
+    "name": "Kündigungsverzicht im Leistungsfall",
+    "kurz": "Kündigungsverzicht",
+    "werte": { "2": "ja, dauerhaft", "1": "eingeschränkt", "0": "nein" },
+    "info": "Ohne Kündigungsverzicht darf der Versicherer den Vertrag nach einem Leistungsfall ordentlich kündigen. Dein Tier hat dann eine dokumentierte Vorerkrankung und ist bei jedem anderen Versicherer nur noch mit Ausschluss versicherbar. Ein dauerhafter Verzicht schützt dich genau in dem Moment, in dem die Versicherung gebraucht wird.",
+    "gewicht": 1
+  },
+  {
+    "key": "warte",
+    "tierarten": ["hund", "katze"],
+    "name": "Wartezeiten",
+    "kurz": "Wartezeit",
+    "werte": { "2": "keine oder bis 1 Monat", "1": "bis 3 Monate", "0": "länger oder viele Sonderwartezeiten" },
+    "info": "In der Wartezeit nach Vertragsbeginn zahlt der Versicherer nichts, außer meist bei Unfällen. Üblich sind 1 bis 3 Monate; für bestimmte Eingriffe wie HD-Operationen oder Kastrationen gelten oft Sonderwartezeiten von 6 bis 12 Monaten. Je kürzer und je weniger Ausnahmen, desto früher bist du wirklich geschützt.",
+    "gewicht": 1
+  },
+  {
+    "key": "sb",
+    "tierarten": ["hund", "katze"],
+    "name": "Selbstbeteiligung",
+    "kurz": "Selbstbeteiligung",
+    "werte": { "2": "wählbar, fest, ohne Altersstaffel", "1": "prozentual", "0": "zwingend und steigend mit dem Alter" },
+    "info": "Eine feste Selbstbeteiligung, zum Beispiel ein Betrag pro Jahr, ist planbar. Eine prozentuale Beteiligung an jeder Rechnung wird bei teuren Operationen schnell vierstellig. Am ungünstigsten sind Tarife, die die Selbstbeteiligung mit dem Alter des Tieres anheben, denn genau dann steigen die Tierarztkosten ohnehin.",
+    "gewicht": 1
+  },
+  {
+    "key": "alter",
+    "tierarten": ["hund", "katze"],
+    "name": "Beitrag im Alter",
+    "kurz": "Beitrag im Alter",
+    "werte": { "2": "keine Altersstaffel oder tarifgarantiert gedeckelt", "1": "moderate Staffel", "0": "starke Sprünge ab Alter 7" },
+    "info": "Viele Tarife werden ab einem Alter von etwa 7 Jahren deutlich teurer, manche in mehreren Stufen. Ein Wechsel ist dann kaum noch möglich, weil jeder neue Versicherer die inzwischen bekannten Erkrankungen ausschließt. Deshalb zählt nicht der Einstiegsbeitrag, sondern die Beitragsentwicklung über das ganze Leben deines Tieres.",
+    "gewicht": 1
+  },
+  {
+    "key": "aufnahme",
+    "tierarten": ["hund", "katze"],
+    "name": "Aufnahme- und Höchstalter",
+    "kurz": "Aufnahmealter",
+    "werte": { "2": "Aufnahme bis mindestens 9 Jahre, kein Endalter", "1": "Aufnahme bis 7 Jahre", "0": "Aufnahme bis 5 Jahre oder Endalter" },
+    "info": "Jeder Versicherer legt fest, bis zu welchem Alter er ein Tier neu aufnimmt. Manche Tarife enden zusätzlich mit einem Höchstalter, dann steht ein altes Tier ohne Schutz da. Für ältere Tiere und für alle, die später wechseln wollen, ist dieses Kriterium entscheidend.",
+    "gewicht": 1
+  },
+  {
+    "key": "zahn",
+    "tierarten": ["hund", "katze"],
+    "name": "Zahn, Physio und Vorsorge",
+    "kurz": "Zahn und Vorsorge",
+    "werte": { "2": "alles enthalten mit Budget", "1": "teilweise", "0": "nicht enthalten" },
+    "info": "Zahnerkrankungen gehören bei Hund und Katze zu den häufigsten Behandlungen; bei Katzen ist FORL schmerzhaft und tritt oft mehrfach im Leben auf. Physiotherapie nach Operationen und Vorsorge wie Impfungen oder Zahnreinigung sind in vielen Vollschutz-Tarifen mit einem jährlichen Budget enthalten, in OP-Tarifen fast nie. Für OP-Schutz spielt dieses Kriterium im Ranking keine Rolle.",
+    "gewicht": 1
+  },
+  {
+    "key": "direkt",
+    "tierarten": ["hund", "katze"],
+    "name": "Abwicklung",
+    "kurz": "Abwicklung",
+    "werte": { "2": "Direktabrechnung mit Tierarzt und App", "1": "App oder Direktabrechnung", "0": "nur Postweg" },
+    "info": "Bei Direktabrechnung rechnet der Tierarzt oder die Klinik direkt mit dem Versicherer ab; du musst eine vierstellige Rechnung nicht vorstrecken. Eine App beschleunigt das Einreichen und die Erstattung. Reiner Postweg heißt: Rechnung bezahlen, Formular ausfüllen, warten.",
+    "gewicht": 1
+  },
+  {
+    "key": "got",
+    "tierarten": ["pferd"],
+    "name": "GOT-Satz",
+    "kurz": "GOT-Satz",
+    "werte": { "2": "bis 4-fach, auch im Notdienst", "1": "bis 3-fach", "0": "bis 2-fach" },
+    "info": "Die Gebührenordnung für Tierärzte (GOT) gilt auch für Pferdekliniken. Regulär wird bis zum 3-fachen Satz abgerechnet, im Notdienst bis zum 4-fachen Satz plus Notdienstgebühr. Kolik-Operationen sind fast immer Notfälle außerhalb der Sprechzeiten; ein Tarif, der nur den 2-fachen Satz erstattet, lässt dich auf einem großen Teil der Rechnung sitzen. TODO: Satz an der amtlichen GOT prüfen.",
+    "gewicht": 1
+  },
+  {
+    "key": "limit",
+    "tierarten": ["pferd"],
+    "name": "Jahreshöchstleistung",
+    "kurz": "Jahreslimit",
+    "werte": { "2": "unbegrenzt", "1": "Limit ab 10.000 €", "0": "Limit unter 10.000 €" },
+    "info": "Eine Kolik-OP mit Klinikaufenthalt und Nachsorge kann eine fünfstellige Rechnung ergeben. Liegt das Jahreslimit darunter, trägst du den Rest. Beim Pferd ist ein Limit unter 10.000 Euro deshalb ein echter Schwachpunkt, selbst wenn der Beitrag günstig ist.",
+    "gewicht": 1
+  },
+  {
+    "key": "kolik",
+    "tierarten": ["pferd"],
+    "name": "Kolik-OP inklusive Klinik und Nachsorge",
+    "kurz": "Kolik-OP",
+    "werte": { "2": "voll", "1": "mit Limit", "0": "ausgeschlossen" },
+    "info": "Kolik ist der Sammelbegriff für Bauchschmerzen beim Pferd, von harmlos bis lebensbedrohlich. Wird eine Operation nötig, kommen Narkose, Bauchhöhlen-OP, Intensivüberwachung und mehrere Tage Klinik zusammen. Manche Tarife deckeln genau diese OP oder schließen sie aus. Das Kriterium prüft, ob der ganze Fall bezahlt wird, nicht nur der Eingriff.",
+    "gewicht": 1
+  },
+  {
+    "key": "lahm",
+    "tierarten": ["pferd"],
+    "name": "Lahmheitsdiagnostik mit Bildgebung",
+    "kurz": "Lahmheit",
+    "werte": { "2": "voll", "1": "mit Limit", "0": "ausgeschlossen" },
+    "info": "Lahmheiten und Sehnenschäden sind beim Pferd die häufigste Ursache für lange Behandlungen. Bevor behandelt werden kann, muss die Ursache gefunden werden: Röntgen, Ultraschall, im Zweifel MRT oder Szintigrafie. Diese Diagnostik ist teuer und wird in OP-Tarifen nicht, in Vollschutz-Tarifen unterschiedlich erstattet. Für Sport- und Zuchtpferde zählt das Kriterium doppelt.",
+    "gewicht": 1
+  },
+  {
+    "key": "kuend",
+    "tierarten": ["pferd"],
+    "name": "Kündigungsverzicht im Leistungsfall",
+    "kurz": "Kündigungsverzicht",
+    "werte": { "2": "ja", "1": "eingeschränkt", "0": "nein" },
+    "info": "Ohne Kündigungsverzicht darf der Versicherer nach einem Leistungsfall kündigen. Ein Pferd mit dokumentierter Kolik-OP oder Sehnenschaden bekommt bei jedem anderen Versicherer nur noch einen Vertrag mit Ausschluss. Ein dauerhafter Verzicht schützt dich genau dann, wenn du die Versicherung brauchst.",
+    "gewicht": 1
+  },
+  {
+    "key": "warte",
+    "tierarten": ["pferd"],
+    "name": "Wartezeiten",
+    "kurz": "Wartezeit",
+    "werte": { "2": "bis 1 Monat", "1": "bis 3 Monate", "0": "länger" },
+    "info": "In der Wartezeit nach Vertragsbeginn zahlt der Versicherer nichts, außer meist bei Unfällen. Bei Pferden gelten für Kolik-OPs und Lahmheiten teils eigene, längere Wartezeiten. Je kürzer und je weniger Ausnahmen, desto früher bist du wirklich geschützt.",
+    "gewicht": 1
+  },
+  {
+    "key": "sb",
+    "tierarten": ["pferd"],
+    "name": "Selbstbeteiligung",
+    "kurz": "Selbstbeteiligung",
+    "werte": { "2": "wählbar und fest", "1": "prozentual", "0": "zwingend und steigend" },
+    "info": "Eine feste Selbstbeteiligung ist planbar. Eine prozentuale Beteiligung an jeder Rechnung wird bei einer Kolik-OP schnell vierstellig. Am ungünstigsten sind Tarife, die die Selbstbeteiligung mit dem Alter oder der Nutzung des Pferdes anheben.",
+    "gewicht": 1
+  },
+  {
+    "key": "nutzung",
+    "tierarten": ["pferd"],
+    "name": "Nutzungsarten",
+    "kurz": "Nutzung",
+    "werte": { "2": "Freizeit, Sport und Zucht ohne Zuschlag", "1": "mit Zuschlag", "0": "nur Freizeit" },
+    "info": "Viele Tarife versichern nur Freizeitpferde oder verlangen für Sport und Zucht einen Zuschlag. Wer turniermäßig reitet oder züchtet, braucht einen Tarif, der das ausdrücklich einschließt; sonst droht im Leistungsfall eine Kürzung wegen falscher Angaben.",
+    "gewicht": 1
+  },
+  {
+    "key": "aufnahme",
+    "tierarten": ["pferd"],
+    "name": "Aufnahme- und Höchstalter",
+    "kurz": "Aufnahmealter",
+    "werte": { "2": "bis mindestens 15 Jahre, kein Endalter", "1": "bis 12 Jahre", "0": "bis 10 Jahre oder Endalter" },
+    "info": "Pferde werden oft über 25 Jahre alt, aber viele Versicherer nehmen nur bis 10 oder 12 Jahre neu auf, manche beenden den Vertrag mit einem Höchstalter. Für ältere Pferde und für alle, die später wechseln wollen, ist dieses Kriterium entscheidend.",
+    "gewicht": 1
+  },
+  {
+    "key": "direkt",
+    "tierarten": ["pferd"],
+    "name": "Abwicklung",
+    "kurz": "Abwicklung",
+    "werte": { "2": "Direktabrechnung mit Klinik und App", "1": "eins davon", "0": "nur Postweg" },
+    "info": "Bei Direktabrechnung rechnet die Klinik direkt mit dem Versicherer ab; eine fünfstellige Kolik-Rechnung musst du dann nicht vorstrecken. Eine App beschleunigt das Einreichen. Reiner Postweg heißt: Rechnung bezahlen, Formular ausfüllen, warten.",
+    "gewicht": 1
+  }
+]

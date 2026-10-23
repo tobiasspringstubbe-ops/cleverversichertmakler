@@ -53,3 +53,23 @@ Jeder Platzhalter im Projekt steht hier mit Datei, Zeile und dem, was fehlt. Nic
 - Die Wortmarke „VERSICHERT“ steht im HTML als „versichert“ und wird per CSS in Versalien gesetzt, damit Vorleseprogramme das Wort natürlich lesen.
 - Der WhatsApp-Link fällt ohne Nummer auf `wa.me` ohne Nummer zurück, bis `WHATSAPP_NUMBER` eingetragen ist.
 - Die PNG-Icons und `og.png` entstehen mit Chromium aus `public/brand/smiley.svg` (Skript außerhalb des Projekts). Ändert sich die SVG, müssen sie neu erzeugt werden.
+
+## Platzhalter und Annahmen aus Schritt 3 (Datenmodelle)
+
+| Datei | Stelle | Was fehlt | Nr. im Brief |
+| --- | --- | --- | --- |
+| `src/data/insurers.json` | alle `werte` | Kriterienbewertung 0 bis 2 je Versicherer und Tierart aus den Bedingungswerken; alle Werte sind `null` | 5 |
+| `src/data/insurers.json` | alle `preis` | Preisspannen je Tierart, Schutz und Altersband; alle `null` | 5 |
+| `src/data/insurers.json` | `tarif`, `quelle` je Versicherer | Tarifname, Bedingungswerk mit Datum | 5 |
+| `src/data/insurers.json` | Liste der Versicherer | Mit den Courtagezusagen der CLARUS AG abgleichen und auf die vermittelbaren kürzen | 4 |
+| `src/data/criteria.json` | `info` bei `got` (Hund, Katze, Pferd) | Satz an der amtlichen GOT prüfen | 10 |
+| `src/data/criteria.json` | `info` bei `hered` | Quelle für Häufigkeit je Rasse | 10 |
+| `src/data/costs.json` | `quelle` je Karte, `got_todo` | GOT-Beispielrechnung je Zahl, Verordnung verlinken | 10 |
+| `src/data/team.json` | alle drei Einträge | Name, Rolle, Statement, Hintergrund, Tier, Foto, Telefon, Mail, WhatsApp | 2 |
+| `src/data/partners.json` | `versprechen`, `zaehler.summe_euro`, `partner` | Versprechen, Betrag, Vereine mit Freigabe | 9 |
+| `src/data/faq.json` | `antwortzeit`, `todo` bei `kosten-beratung` und `nach-abschluss` | Erreichbarkeit, Rechtsstatus-Formulierung, Umfang der Betreuung | 3, 6 |
+
+- Kriterien, die für Hund und Katze anders definiert sind als für Pferd (`got`, `limit`, `kuend`, `warte`, `sb`, `aufnahme`, `direkt`), stehen zweimal in `criteria.json`: einmal mit `tierarten: ["hund", "katze"]`, einmal mit `["pferd"]`. Die Zuordnung läuft über Schlüssel plus Tierart.
+- Die Altersbänder beim Pferd heißen `u2`, `3-8`, `9-14`, `15+`; bei Hund und Katze `u1`, `1-3`, `4-6`, `7-9`, `10+`.
+- Die FAQ-Texte sind tierartneutral, weil der Brief nur eine Fassung je Frage nennt. Der Brief sieht vor, dass Abschnitt 9 mit der Tierart wechselt; das würde eigene Antworten je Tierart brauchen.
+- Die Validierung läuft in `src/data/index.ts` beim Build: Schema je Datei plus Querprüfung, dass jeder Versicherer genau die Kriterienschlüssel und Altersbänder seiner Tierarten hat.

@@ -1,0 +1,15 @@
+{
+  "got_hinweis": "Seit dem 22. November 2022 gilt die neue Gebührenordnung für Tierärzte (GOT). Tierärzte rechnen regulär bis zum 3-fachen Satz ab, im Notdienst bis zum 4-fachen Satz plus Notdienstgebühr.",
+  "got_todo": "Satz an der amtlichen GOT prüfen und die Verordnung verlinken.",
+  "karten": [
+    { "tierart": "hund", "fall": "Kreuzband-OP", "von": 2500, "bis": 4500, "einordnung": "Die häufigste Knie-OP, nicht selten beidseitig.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "hund", "fall": "Magendrehung, Not-OP", "von": 2500, "bis": 4000, "einordnung": "Lebensgefahr innerhalb von Stunden, vor allem große, tiefbrüstige Rassen.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "hund", "fall": "Hüftdysplasie, OP je Seite", "von": 2000, "bis": 5000, "einordnung": "Erblich mitbedingt; viele Tarife schließen sie aus.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "katze", "fall": "Harnröhrenverschluss, Not-OP", "von": 1000, "bis": 2500, "einordnung": "Typisch für Kater, oft nachts, immer ein Notfall.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "katze", "fall": "Fremdkörper-OP", "von": 1500, "bis": 3000, "einordnung": "Spielzeug, Schnüre, Haargummis.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "katze", "fall": "Zahnsanierung bei FORL", "von": 500, "bis": 1500, "einordnung": "Schmerzhaft, häufig, oft mehrfach im Leben.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "pferd", "fall": "Kolik-OP mit Klinik", "von": 5000, "bis": 10000, "einordnung": "Die Rechnung, die Pferdehalter am meisten fürchten.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "pferd", "fall": "Arthroskopie (Chip)", "von": 2000, "bis": 4000, "einordnung": "Häufig bei jungen Sportpferden.", "quelle": "TODO: GOT-Beispielrechnung" },
+    { "tierart": "pferd", "fall": "Lahmheitsdiagnostik mit Bildgebung", "von": 500, "bis": 2500, "einordnung": "Röntgen, Ultraschall, im Zweifel MRT.", "quelle": "TODO: GOT-Beispielrechnung" }
+  ]
+}

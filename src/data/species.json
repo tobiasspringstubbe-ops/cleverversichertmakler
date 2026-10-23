@@ -1,0 +1,92 @@
+[
+  {
+    "id": "hund",
+    "name": "Hund",
+    "plural": "Hunde",
+    "dativPlural": "Hunden",
+    "mitArtikel": "ein Hund",
+    "akkusativ": "deinen Hund",
+    "icon": "hund",
+    "altersbaender": [
+      { "key": "u1", "label": "unter 1 Jahr" },
+      { "key": "1-3", "label": "1 bis 3 Jahre" },
+      { "key": "4-6", "label": "4 bis 6 Jahre" },
+      { "key": "7-9", "label": "7 bis 9 Jahre" },
+      { "key": "10+", "label": "10 Jahre und älter" }
+    ],
+    "senior": ["7-9", "10+"],
+    "groessen": [
+      { "key": "klein", "label": "klein (bis 10 kg)" },
+      { "key": "mittel", "label": "mittel (10 bis 25 kg)" },
+      { "key": "gross", "label": "groß (über 25 kg)" }
+    ],
+    "nutzungen": [],
+    "erkrankungen": [
+      "Hüft- und Ellbogendysplasie",
+      "Kreuzbandriss",
+      "Magendrehung",
+      "Hautallergien",
+      "Ohrenentzündungen",
+      "Zahnerkrankungen",
+      "Tumore im Alter"
+    ]
+  },
+  {
+    "id": "katze",
+    "name": "Katze",
+    "plural": "Katzen",
+    "dativPlural": "Katzen",
+    "mitArtikel": "eine Katze",
+    "akkusativ": "deine Katze",
+    "icon": "katze",
+    "altersbaender": [
+      { "key": "u1", "label": "unter 1 Jahr" },
+      { "key": "1-3", "label": "1 bis 3 Jahre" },
+      { "key": "4-6", "label": "4 bis 6 Jahre" },
+      { "key": "7-9", "label": "7 bis 9 Jahre" },
+      { "key": "10+", "label": "10 Jahre und älter" }
+    ],
+    "senior": ["7-9", "10+"],
+    "groessen": [],
+    "nutzungen": [],
+    "erkrankungen": [
+      "chronische Nierenerkrankung (CNE)",
+      "FORL und Zahnerkrankungen",
+      "Harnwegserkrankungen",
+      "Diabetes",
+      "Schilddrüsenüberfunktion",
+      "Unfälle wie Fenstersturz"
+    ]
+  },
+  {
+    "id": "pferd",
+    "name": "Pferd",
+    "plural": "Pferde",
+    "dativPlural": "Pferden",
+    "mitArtikel": "ein Pferd",
+    "akkusativ": "dein Pferd",
+    "icon": "pferd",
+    "altersbaender": [
+      { "key": "u2", "label": "bis 2 Jahre" },
+      { "key": "3-8", "label": "3 bis 8 Jahre" },
+      { "key": "9-14", "label": "9 bis 14 Jahre" },
+      { "key": "15+", "label": "15 Jahre und älter" }
+    ],
+    "senior": ["15+"],
+    "groessen": [],
+    "nutzungen": [
+      { "key": "freizeit", "label": "Freizeit" },
+      { "key": "sport", "label": "Sport" },
+      { "key": "zucht", "label": "Zucht" }
+    ],
+    "erkrankungen": [
+      "Kolik",
+      "Hufrehe",
+      "Lahmheiten und Sehnenschäden",
+      "Mauke",
+      "Sommerekzem",
+      "Cushing (PPID)",
+      "Zahnprobleme"
+    ]
+  }
+]
