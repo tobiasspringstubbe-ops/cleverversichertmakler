@@ -13,7 +13,7 @@ const { variant } = Astro.props;
 const pathname = Astro.url.pathname;
 ---
 
-<nav class:list={["nav", `nav--${variant}`]} aria-label="Hauptnavigation">
+<nav class:list={["nav", `nav--${variant}`]} aria-label={variant === "bar" ? "Hauptnavigation mobil" : "Hauptnavigation"}>
   <ul class="nav__list">
     {
       NAV_ITEMS.map((item) => {

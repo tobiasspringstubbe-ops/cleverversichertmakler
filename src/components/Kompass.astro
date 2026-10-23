@@ -24,7 +24,7 @@ const { preview = false } = Astro.props;
   </div>
   <div data-for="any">
     <div class:list={["kompass__body", { "kompass__body--full": !preview }]}>
-      <form class="kompass__inputs card" data-kompass-inputs aria-label="Angaben zu deinem Tier" novalidate></form>
+      <div class="kompass__inputs card" data-kompass-inputs role="group" aria-label="Angaben zu deinem Tier"></div>
       <div class="kompass__results" data-kompass-results aria-live="polite"></div>
     </div>
   </div>

@@ -19,7 +19,6 @@ const Tag = href ? "a" : "div";
 <Tag
   class:list={["logo", className]}
   href={href}
-  aria-label={href ? "clever versichert, zur Startseite" : "clever versichert"}
   style={`--logo-size:${size}px`}
 >
   <svg class="logo__mark" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false">
@@ -37,10 +36,11 @@ const Tag = href ? "a" : "div";
       <path d="M 328.804 658 C 413.804 742 610.196 742 695.196 658" fill="none" stroke="#FFFFFF" stroke-width="66" stroke-linecap="butt" />
     </g>
   </svg>
-  <span class="logo__word" aria-hidden="true">
+  <span class="logo__word">
     <span class="logo__clever">clever</span>
     <span class="logo__versichert">versichert</span>
   </span>
+  {href && <span class="visually-hidden">, zur Startseite</span>}
 </Tag>
 
 <style>

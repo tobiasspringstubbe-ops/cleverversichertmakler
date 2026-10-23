@@ -99,7 +99,7 @@ function select(name: string, label: string, options: { key: string; label: stri
     .join("")}</select></div>`;
 }
 
-function renderInputs(form: HTMLFormElement, species: Species, state: FormState): void {
+function renderInputs(form: HTMLElement, species: Species, state: FormState): void {
   const parts: string[] = [];
   parts.push(radioGroup("status", "Dein Tier", [{ value: "schon", label: "schon bei mir" }, { value: "bald", label: "kommt bald" }], state.status));
   parts.push(select("alter", "Alter", species.altersbaender, state.alter));
@@ -117,24 +117,24 @@ function renderInputs(form: HTMLFormElement, species: Species, state: FormState)
   form.innerHTML = parts.join("");
 }
 
-function readState(form: HTMLFormElement, previous: FormState): FormState {
-  const data = new FormData(form);
+function readState(form: HTMLElement, previous: FormState): FormState {
+  const has = (k: string) => form.querySelector(`[name="${k}"]`) !== null;
   const str = (k: string) => {
-    const v = data.get(k);
-    return typeof v === "string" ? v : "";
+    const el = form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${k}"]:not([type=radio]), input[name="${k}"][type=radio]:checked`);
+    return el?.value ?? "";
   };
   const orNull = (v: string) => (v === "" ? null : v);
   return {
     status: str("status") === "bald" ? "bald" : "schon",
     alter: orNull(str("alter")),
-    groesse: form.elements.namedItem("groesse") ? orNull(str("groesse")) : null,
-    nutzung: form.elements.namedItem("nutzung") ? orNull(str("nutzung")) : null,
+    groesse: has("groesse") ? orNull(str("groesse")) : null,
+    nutzung: has("nutzung") ? orNull(str("nutzung")) : null,
     rasse: str("rasse").slice(0, 60),
     vorerkrankungen: str("vorerkrankungen") === "ja" ? "ja" : "nein",
     vorerkrankungenText: str("vorerkrankungenText").slice(0, 300),
     schutz: str("schutz") === "op" ? "op" : "voll",
     sb: str("sb") === "mit" ? "mit" : "ohne",
-    ...(previous.alter && !form.elements.namedItem("alter") ? { alter: previous.alter } : {}),
+    ...(previous.alter && !has("alter") ? { alter: previous.alter } : {}),
   };
 }
 
@@ -277,7 +277,7 @@ function renderResults(container: HTMLElement, input: KompassInput, state: { sho
 
 export function mountKompass(root: HTMLElement): void {
   const opts: Options = { preview: root.dataset.preview === "true", placeholderMode: root.dataset.placeholder === "true" };
-  const form = root.querySelector<HTMLFormElement>("[data-kompass-inputs]");
+  const form = root.querySelector<HTMLElement>("[data-kompass-inputs]");
   const results = root.querySelector<HTMLElement>("[data-kompass-results]");
   if (!form || !results) return;
 
@@ -300,7 +300,6 @@ export function mountKompass(root: HTMLElement): void {
     update();
   };
 
-  form.addEventListener("submit", (e) => e.preventDefault());
   form.addEventListener("input", () => {
     state = readState(form, state);
     const textField = form.querySelector<HTMLElement>("[data-vorerkrankungen-text]");

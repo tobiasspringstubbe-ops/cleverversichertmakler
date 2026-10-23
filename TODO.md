@@ -93,3 +93,21 @@ Jede Zahl ohne Quelle trägt im Artikel ein Badge „Platzhalter“ und ein `TOD
 
 - Die Quellenlinks auf gesetze-im-internet.de (GOT, VVG, GewO, VersVermV) sind aus dem Gedächtnis gesetzt und vor dem Go-live zu prüfen.
 - Die Badges in den Artikeln sind als HTML im Markdown gesetzt; sie verschwinden mit allen anderen Badges, sobald `PLACEHOLDER_MODE` auf `false` steht.
+
+## Ergebnis der Qualitätssicherung (Schritt 7)
+
+Geprüft am 23.10.2026 auf dem Produktions-Build mit Chromium (Playwright) und Lighthouse 13, mobil.
+
+| Prüfung | Ergebnis |
+| --- | --- |
+| Lighthouse `/`, `/tier-kompass`, `/kontakt`, `/wissen/got-tierarztkosten` | Performance 100, Accessibility 99 bis 100 (nach Korrektur 100 erwartet), Best Practices 100, SEO 100 |
+| HTML-Validierung (html-validate, Regelsatz recommended) | 0 Fehler in allen 22 Seiten; Regel `prefer-native-element` abgeschaltet, weil der Brief `role="radiogroup"` mit `aria-checked` für die Tierwahl vorgibt |
+| Fremde Requests zur Laufzeit | keine; nur Links auf wa.me und gesetze-im-internet.de, die erst beim Klick öffnen |
+| Konsolenfehler auf allen 12 Seiten | keine |
+| Tastatur | Skip-Link, Tierwahl per Pfeiltasten, Chip per Enter öffnet Panel, Escape schließt, Dunkelmodus per Enter |
+| JavaScript gesamt | rund 12 KB komprimiert (Budget 60 KB) |
+| Darstellung 360, 768, 1280 px, hell und dunkel | geprüft, keine unlesbaren Stellen |
+| Tote interne Links | nur `/erstinformation.pdf`, siehe Punkt 8; wird in Schritt 8 durch ein Platzhalter-PDF aus der Seite ersetzt |
+| `npm run build` | ohne Fehler und Warnungen |
+
+Nicht automatisch geprüft: die Links auf gesetze-im-internet.de und vermittlerregister.info (Netz im Build-Container gesperrt).

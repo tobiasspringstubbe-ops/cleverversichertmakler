@@ -8,15 +8,18 @@ import { CONTACT_MAIL, CONTACT_PHONE, ERREICHBARKEIT_TEXT, STANDORT, WHATSAPP_DE
 interface Props {
   /** Standort und Erstinformation mit anzeigen. */
   full?: boolean;
+  /** Überschriftenebene, passend zur Seite. */
+  level?: "h2" | "h3";
 }
 
-const { full = false } = Astro.props;
+const { full = false, level = "h3" } = Astro.props;
+const Heading = level;
 const tel = isPlaceholder(CONTACT_PHONE) ? null : `tel:${CONTACT_PHONE.replace(/[^\d+]/g, "")}`;
 const mail = isPlaceholder(CONTACT_MAIL) ? null : `mailto:${CONTACT_MAIL}`;
 ---
 
 <div class="channels card">
-  <h3 class="channels__title">So erreichst du uns</h3>
+  <Heading class="channels__title">So erreichst du uns</Heading>
   <p class="channels__hours">
     {ERREICHBARKEIT_TEXT}
     <PlaceholderBadge value={ERREICHBARKEIT_TEXT} />
