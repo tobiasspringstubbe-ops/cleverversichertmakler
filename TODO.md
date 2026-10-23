@@ -127,3 +127,7 @@ Nicht automatisch geprüft: die Links auf gesetze-im-internet.de und vermittlerr
 - Für die eigene Domain: in den Repository-Einstellungen unter Pages die Custom Domain eintragen, DNS setzen. Der Basis-Pfad wird dann leer, `robots.txt` und Sitemap stimmen dann wieder.
 - Der Workflow versucht, Pages selbst zu aktivieren (`enablement: true`). Schlägt das mangels Rechten fehl: Settings, Pages, Source auf „GitHub Actions“ stellen und den Workflow erneut starten.
 - `build.format` ist `file` (`/kontakt` liegt als `kontakt.html`). GitHub Pages löst `/kontakt` automatisch auf; ein Apache-Webspace braucht dafür `Options +MultiViews` oder eine Rewrite-Regel in `.htaccess` (TODO bei Punkt 11).
+
+## Änderungen nach Abnahme
+
+- 23.10.2026, Kostenblock auf der Startseite: Auf Wunsch von Tobias zeigt der Block alle neun Kostenkarten in drei Gruppen mit eigener Überschrift (Hund, Katze, Pferd), je im Drei-Spalten-Raster, mobil eine Spalte. Abweichung vom Brief (Abschnitt 4, Punkt 3), wo der Block mit der Tierart wechselt. Die Überschrift lautet jetzt „Was dein Tier wirklich kosten kann“.
