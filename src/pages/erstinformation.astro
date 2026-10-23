@@ -4,6 +4,7 @@ import Breadcrumb from "../components/Breadcrumb.astro";
 import LegalBlock from "../components/LegalBlock.astro";
 import PlaceholderBadge from "../components/PlaceholderBadge.astro";
 import Cta from "../components/Cta.astro";
+import { href } from "../lib/url";
 ---
 
 <BaseLayout title="Erstinformation" description="Erstinformation nach § 15 VersVermV: wer wir sind, als was wir tätig sind, wie wir vergütet werden und an wen du dich bei Beschwerden wenden kannst." noindex>
@@ -11,7 +12,7 @@ import Cta from "../components/Cta.astro";
     <div class="container prose">
       <Breadcrumb items={[{ label: "Erstinformation" }]} />
       <h1>Erstinformation</h1>
-      <p>Diese Informationen bekommst du nach § 15 Versicherungsvermittlungsverordnung (VersVermV) beim ersten Geschäftskontakt. Du findest sie auch als <a href="/erstinformation.pdf">PDF zum Herunterladen</a> <PlaceholderBadge force />.</p>
+      <p>Diese Informationen bekommst du nach § 15 Versicherungsvermittlungsverordnung (VersVermV) beim ersten Geschäftskontakt. Du findest sie auch als <a href={href("/erstinformation.pdf")}>PDF zum Herunterladen</a> <PlaceholderBadge force />.</p>
 
       <LegalBlock
         title="Name und Anschrift"

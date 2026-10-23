@@ -3,6 +3,8 @@
  * Handlungsaufruf „Erzähl uns von deinem Tier“, führt zum Kontaktformular
  * und trägt die Tierwahl als ?tier= mit. Quelle: BRIEF.md Abschnitt 4 und 7.
  */
+import { href } from "../lib/url";
+
 interface Props {
   variant?: "primary" | "secondary";
   /** Zusätzlicher Satz über dem Button. */
@@ -16,7 +18,7 @@ const { variant = "primary", lead, class: className, align = "start" } = Astro.p
 
 <div class:list={["cta", `cta--${align}`, className]}>
   {lead && <p class="cta__lead">{lead}</p>}
-  <a class:list={["button", `button--${variant}`]} href="/kontakt#anfrage" data-species-link>
+  <a class:list={["button", `button--${variant}`]} href={href("/kontakt#anfrage")} data-species-link>
     Erzähl uns von deinem Tier
   </a>
 </div>

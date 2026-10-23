@@ -7,6 +7,7 @@ import Logo from "./Logo.astro";
 import Icon from "./Icon.astro";
 import PlaceholderBadge from "./PlaceholderBadge.astro";
 import { NAV_ITEMS } from "../lib/nav";
+import { href } from "../lib/url";
 import { whatsappLink } from "../lib/whatsapp";
 import {
   CLAIM,
@@ -49,7 +50,7 @@ const mailHref = isPlaceholder(CONTACT_MAIL) ? undefined : `mailto:${CONTACT_MAI
         <PlaceholderBadge value={ERREICHBARKEIT_TEXT} />
       </p>
       <p class="footer__small">
-        WhatsApp ist ein Dienst von Meta. Was dabei mit deinen Daten passiert, steht in der <a href="/datenschutz">Datenschutzerklärung</a>.
+        WhatsApp ist ein Dienst von Meta. Was dabei mit deinen Daten passiert, steht in der <a href={href("/datenschutz")}>Datenschutzerklärung</a>.
         <PlaceholderBadge force />
       </p>
     </section>
@@ -57,20 +58,20 @@ const mailHref = isPlaceholder(CONTACT_MAIL) ? undefined : `mailto:${CONTACT_MAI
     <section class="footer__col">
       <h2 class="footer__title">Seiten</h2>
       <ul class="footer__list">
-        <li><a href="/">Startseite</a></li>
-        {NAV_ITEMS.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-        <li><a href="/so-bewerten-wir">So bewerten wir</a></li>
+        <li><a href={href("/")}>Startseite</a></li>
+        {NAV_ITEMS.map((item) => <li><a href={href(item.href)}>{item.label}</a></li>)}
+        <li><a href={href("/so-bewerten-wir")}>So bewerten wir</a></li>
       </ul>
     </section>
 
     <section class="footer__col">
       <h2 class="footer__title">Rechtliches</h2>
       <ul class="footer__list">
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-        <li><a href="/erstinformation">Erstinformation</a></li>
+        <li><a href={href("/impressum")}>Impressum</a></li>
+        <li><a href={href("/datenschutz")}>Datenschutz</a></li>
+        <li><a href={href("/erstinformation")}>Erstinformation</a></li>
         <li>
-          <a href="/erstinformation.pdf">Erstinformation als PDF</a>
+          <a href={href("/erstinformation.pdf")}>Erstinformation als PDF</a>
           <PlaceholderBadge force />
         </li>
       </ul>

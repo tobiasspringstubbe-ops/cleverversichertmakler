@@ -1,6 +1,7 @@
 ---
 /** Brotkrumen für Unterseiten mit BreadcrumbList als strukturierte Daten. */
 import { SITE_URL } from "../config";
+import { href } from "../lib/url";
 
 interface Crumb {
   label: string;
@@ -20,7 +21,7 @@ const jsonLd = {
     "@type": "ListItem",
     position: i + 1,
     name: c.label,
-    ...(c.href ? { item: new URL(c.href, SITE_URL).href } : {}),
+    ...(c.href ? { item: new URL(href(c.href), SITE_URL).href } : {}),
   })),
 };
 ---
@@ -30,7 +31,7 @@ const jsonLd = {
     {
       all.map((c, i) => (
         <li class="breadcrumb__item">
-          {c.href && i < all.length - 1 ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+          {c.href && i < all.length - 1 ? <a href={href(c.href)}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
         </li>
       ))
     }

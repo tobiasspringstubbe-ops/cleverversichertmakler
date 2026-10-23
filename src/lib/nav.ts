@@ -1,3 +1,5 @@
+import { currentPath } from "./url";
+
 /** Die genau fünf Punkte der Hauptnavigation. Quelle: BRIEF.md Abschnitt 4. */
 export const NAV_ITEMS = [
   { href: "/tier-kompass", label: "Tier-Kompass" },
@@ -9,6 +11,6 @@ export const NAV_ITEMS = [
 
 /** Prüft, ob ein Navigationspunkt zur aktuellen Seite gehört (auch Unterseiten). */
 export function isActive(pathname: string, href: string): boolean {
-  const clean = pathname.replace(/\/+$/, "") || "/";
+  const clean = currentPath(pathname);
   return clean === href || clean.startsWith(`${href}/`);
 }

@@ -5,6 +5,7 @@ import Kompass from "../components/Kompass.astro";
 import Cta from "../components/Cta.astro";
 import { criteriaFor, insurers } from "../data";
 import { formatStand } from "../lib/kompass/scoring";
+import { href } from "../lib/url";
 
 const gruppen = [
   { titel: "Kriterien für Hund und Katze", liste: criteriaFor("hund") },
@@ -30,7 +31,7 @@ const gruppen = [
   <section class="section section--mist" id="kriterien">
     <div class="container">
       <h2>Was die Kriterien bedeuten</h2>
-      <p>Stand des Katalogs: {formatStand(insurers.stand)}. Die Gewichtung je Eingabe steht auf <a href="/so-bewerten-wir">So bewerten wir</a>.</p>
+      <p>Stand des Katalogs: {formatStand(insurers.stand)}. Die Gewichtung je Eingabe steht auf <a href={href("/so-bewerten-wir")}>So bewerten wir</a>.</p>
       {
         gruppen.map((g) => (
           <div class="criteria-group">

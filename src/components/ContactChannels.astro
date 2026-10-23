@@ -3,6 +3,7 @@
 import Icon from "./Icon.astro";
 import PlaceholderBadge from "./PlaceholderBadge.astro";
 import { whatsappLink } from "../lib/whatsapp";
+import { href } from "../lib/url";
 import { CONTACT_MAIL, CONTACT_PHONE, ERREICHBARKEIT_TEXT, STANDORT, WHATSAPP_DEFAULT_TEXT, WHATSAPP_NUMBER, isPlaceholder } from "../config";
 
 interface Props {
@@ -68,7 +69,7 @@ const mail = isPlaceholder(CONTACT_MAIL) ? null : `mailto:${CONTACT_MAIL}`;
           <PlaceholderBadge value={STANDORT} />
         </p>
         <p class="channels__legal">
-          Vor dem ersten Gespräch: unsere <a href="/erstinformation">Erstinformation</a> nach § 15 VersVermV.
+          Vor dem ersten Gespräch: unsere <a href={href("/erstinformation")}>Erstinformation</a> nach § 15 VersVermV.
         </p>
       </>
     )

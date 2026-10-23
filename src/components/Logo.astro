@@ -3,6 +3,8 @@
  * Bildmarke (Smiley als Inline-SVG) und Wortmarke als HTML-Text.
  * Quelle: BRIEF.md Abschnitt 3.
  */
+import { href as withBase } from "../lib/url";
+
 interface Props {
   size?: number;
   href?: string | undefined;
@@ -11,7 +13,7 @@ interface Props {
   id?: string;
 }
 
-const { size = 36, href = "/", class: className, id = "main" } = Astro.props;
+const { size = 36, href = withBase("/"), class: className, id = "main" } = Astro.props;
 const clipId = `logo-clip-${id}`;
 const Tag = href ? "a" : "div";
 ---

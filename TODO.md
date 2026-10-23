@@ -120,3 +120,10 @@ Nicht automatisch geprüft: die Links auf gesetze-im-internet.de und vermittlerr
 - Das PDF enthält den Satz „Du findest sie auch als PDF zum Herunterladen“, weil es aus der Seite entsteht. Vor dem Go-live mit den endgültigen Inhalten neu erzeugen; der Satz kann dann per Druck-CSS ausgeblendet werden.
 - Die Punkte 13 (Google-Unternehmensprofil, Baustein „Was Kunden sagen“) und 14 (echte Fotos) sind bewusst nicht gebaut; die Teamkarten zeigen Initialen-Kreise, bis Fotos unter `public/img/team/` liegen und in `team.json` eingetragen sind.
 - Hinweis zum Punkt 6: Die Domain cleverversichertmakler.de nennt den Maklerstatus. Sollte die Tätigkeit nicht unter eigener Erlaubnis nach § 34d GewO laufen, gehört die Domain selbst in die juristische Prüfung.
+
+## GitHub Pages
+
+- Deploy läuft über `.github/workflows/deploy.yml` bei jedem Push auf `main`. Adresse ohne eigene Domain: `https://tobiasspringstubbe-ops.github.io/cleverversichertmakler/`. Der Workflow setzt `SITE_URL` und `BASE_PATH`; alle internen Links laufen über `src/lib/url.ts`, Markdown-Links über `src/lib/rehype-base.mjs`.
+- Für die eigene Domain: in den Repository-Einstellungen unter Pages die Custom Domain eintragen, DNS setzen. Der Basis-Pfad wird dann leer, `robots.txt` und Sitemap stimmen dann wieder.
+- Der Workflow versucht, Pages selbst zu aktivieren (`enablement: true`). Schlägt das mangels Rechten fehl: Settings, Pages, Source auf „GitHub Actions“ stellen und den Workflow erneut starten.
+- `build.format` ist `file` (`/kontakt` liegt als `kontakt.html`). GitHub Pages löst `/kontakt` automatisch auf; ein Apache-Webspace braucht dafür `Options +MultiViews` oder eine Rewrite-Regel in `.htaccess` (TODO bei Punkt 11).

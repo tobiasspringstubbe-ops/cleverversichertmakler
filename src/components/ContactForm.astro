@@ -8,6 +8,7 @@ import SpeciesSwitch from "./SpeciesSwitch.astro";
 import PlaceholderBadge from "./PlaceholderBadge.astro";
 import { species } from "../data";
 import { CONTACT_MAIL, ERREICHBARKEIT_TEXT, FORM_ENDPOINT, PLACEHOLDER_MODE, WHATSAPP_NUMBER } from "../config";
+import { href } from "../lib/url";
 
 const config = {
   whatsapp: WHATSAPP_NUMBER.startsWith("TODO") ? "" : WHATSAPP_NUMBER.replace(/\D/g, ""),
@@ -133,13 +134,13 @@ const config = {
   <div class="field" data-field="datenschutz">
     <label class="checkbox">
       <input type="checkbox" name="datenschutz" value="ja" />
-      <span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen.</span>
+      <span>Ich habe die <a href={href("/datenschutz")}>Datenschutzerklärung</a> gelesen.</span>
     </label>
     <span class="field__error" data-error hidden></span>
   </div>
 
   <p class="contact-form__meta">
-    WhatsApp ist ein Dienst von Meta. Was dabei mit deinen Daten passiert, steht in der <a href="/datenschutz">Datenschutzerklärung</a>.
+    WhatsApp ist ein Dienst von Meta. Was dabei mit deinen Daten passiert, steht in der <a href={href("/datenschutz")}>Datenschutzerklärung</a>.
     <PlaceholderBadge force />
   </p>
 

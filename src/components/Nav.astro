@@ -4,6 +4,7 @@
  * Chip-Leiste unter dem Header, ab 900 px als Textzeile im Header.
  */
 import { NAV_ITEMS, isActive } from "../lib/nav";
+import { href } from "../lib/url";
 
 interface Props {
   variant: "bar" | "inline";
@@ -20,7 +21,7 @@ const pathname = Astro.url.pathname;
         const active = isActive(pathname, item.href);
         return (
           <li>
-            <a class:list={["nav__link", { "is-active": active }]} href={item.href} aria-current={active ? "page" : undefined}>
+            <a class:list={["nav__link", { "is-active": active }]} href={href(item.href)} aria-current={active ? "page" : undefined}>
               {item.label}
             </a>
           </li>

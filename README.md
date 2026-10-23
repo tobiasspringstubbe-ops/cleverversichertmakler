@@ -16,7 +16,13 @@ Voraussetzung: Node.js ab 22.23.4, empfohlen die aktuelle LTS-Version 24.
 2. `npm run preview` zeigt den Inhalt von `dist/` lokal zum Gegenprüfen.
 3. Der Build läuft ohne fremde Server; alle Schriften, Bilder und Skripte liegen im Projekt.
 
-## Deploy
+## Deploy auf GitHub Pages
+
+1. Jeder Push auf `main` startet den Workflow `.github/workflows/deploy.yml`; er baut die Seite mit Node 24 und veröffentlicht `dist/` auf GitHub Pages.
+2. Die Seite liegt unter `https://tobiasspringstubbe-ops.github.io/cleverversichertmakler/`; der Workflow setzt dafür `SITE_URL` und `BASE_PATH` automatisch.
+3. Für die eigene Domain in den Repository-Einstellungen unter Pages die Custom Domain `cleverversichertmakler.de` eintragen und die DNS-Einträge bei der Domain setzen; der Basis-Pfad wird dann von selbst leer.
+
+## Deploy per SFTP (Alternative)
 
 1. Den kompletten Inhalt von `dist/` per SFTP in das Domain-Verzeichnis des Hostings für cleverversichertmakler.de laden (TODO: Hosting-Anbieter mit Serverstandort Deutschland und SFTP-Zugang, siehe `TODO.md`).
 2. SSL aktivieren, danach Impressum, Datenschutz, Erstinformation und das Formular auf der Live-Domain testen.

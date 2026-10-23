@@ -8,6 +8,7 @@ import insurersRaw from "../../data/insurers.json";
 import type { Ampel, Criterion, Insurer, Species, SpeciesId } from "../../data/schema";
 import { getSpecies, onSpeciesChange } from "../species-client";
 import { iconSvg } from "../icons";
+import { href } from "../url";
 import { formatStand, rank, type KompassInput, type ScoredInsurer } from "./scoring";
 
 const speciesList = speciesRaw as Species[];
@@ -150,7 +151,7 @@ function requestLink(input: KompassInput, insurer: Insurer): string {
   params.set("sb", input.sb);
   const tarif = insurer.tarif.startsWith("TODO") ? insurer.name : `${insurer.name} ${insurer.tarif}`;
   params.set("tarif", tarif);
-  return `/kontakt?${params.toString()}#anfrage`;
+  return href(`/kontakt?${params.toString()}#anfrage`);
 }
 
 function renderCard(entry: ScoredInsurer, place: number | null, input: KompassInput, criteria: Criterion[], opts: Options, recommend: boolean): string {
@@ -186,7 +187,7 @@ function renderCard(entry: ScoredInsurer, place: number | null, input: KompassIn
     ${priceHtml}
     <div class="rank-card__actions">
       <a class="button button--primary" href="${requestLink(input, insurer)}">Beitrag anfragen</a>
-      <small class="rank-card__stand">Stand ${formatStand(insurers.stand)}, <a href="/so-bewerten-wir">so bewerten wir</a></small>
+      <small class="rank-card__stand">Stand ${formatStand(insurers.stand)}, <a href="${href("/so-bewerten-wir")}">so bewerten wir</a></small>
     </div>
   </article>`;
 }
@@ -210,14 +211,14 @@ function renderResults(container: HTMLElement, input: KompassInput, state: { sho
   }
   parts.push(`<div class="rank-list">${visible.map((v) => renderCard(v.entry, v.place, input, criteria, opts, result.recommend)).join("")}</div>`);
   if (opts.preview) {
-    parts.push(`<p class="rank-more"><a class="button button--secondary" href="/tier-kompass">Alle Tarife im Tier-Kompass</a></p>`);
+    parts.push(`<p class="rank-more"><a class="button button--secondary" href="${href("/tier-kompass")}">Alle Tarife im Tier-Kompass</a></p>`);
   } else if (total > 3) {
     parts.push(
       `<p class="rank-more"><button type="button" class="button button--secondary" data-toggle-all aria-expanded="${state.showAll}">${state.showAll ? "Nur Top 3 anzeigen" : `Alle ${total} Tarife anzeigen`}</button></p>`,
     );
   }
   parts.push(
-    `<p class="rank-note">Bewertung nach unserem Kriterienkatalog, Stand ${formatStand(insurers.stand)}. Keine Beitragsberechnung, kein Angebot. Beitrag und Annahme prüft der Versicherer. <a href="/so-bewerten-wir">So bewerten wir</a></p>`,
+    `<p class="rank-note">Bewertung nach unserem Kriterienkatalog, Stand ${formatStand(insurers.stand)}. Keine Beitragsberechnung, kein Angebot. Beitrag und Annahme prüft der Versicherer. <a href="${href("/so-bewerten-wir")}">So bewerten wir</a></p>`,
   );
   container.innerHTML = parts.join("");
 
@@ -248,7 +249,7 @@ function renderResults(container: HTMLElement, input: KompassInput, state: { sho
           <p class="rank-panel__value"><span class="chip ${ampelClass(value)}">${ampelIcon(value)}<span>${esc(ampelText(value))}</span></span> ${esc(valueLabel)}</p>
           <p>${esc(criterion.info)}</p>
           <p class="rank-panel__scale"><span class="chip chip--ok">2</span> ${esc(criterion.werte["2"])} <span class="chip chip--warn">1</span> ${esc(criterion.werte["1"])} <span class="chip chip--no">0</span> ${esc(criterion.werte["0"])}</p>
-          <p><a href="/so-bewerten-wir">So bewerten wir</a></p>
+          <p><a href="${href("/so-bewerten-wir")}">So bewerten wir</a></p>
         </div>`;
         panel.hidden = false;
         chip.setAttribute("aria-expanded", "true");

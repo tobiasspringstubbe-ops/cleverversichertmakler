@@ -17,6 +17,7 @@ import poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
+import { href } from "../lib/url";
 import { BRAND_NAME, CONTACT_MAIL, CONTACT_PHONE, LOCALE, PLACEHOLDER_MODE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL, STANDORT, isPlaceholder } from "../config";
 
 interface Props {
@@ -31,16 +32,19 @@ interface Props {
 const { title, description = SITE_DESCRIPTION, ogType = "website", noindex = false } = Astro.props;
 
 const pageTitle = title ? `${title} – ${BRAND_NAME}` : SITE_TITLE;
-const canonical = new URL(Astro.url.pathname.replace(/\/+$/, "") || "/", SITE_URL).href;
-const ogImage = new URL("/og.png", SITE_URL).href;
+const siteOrigin = Astro.site?.href ?? SITE_URL;
+/* Beim Build mit build.format "file" endet der Pfad auf .html; die kanonische Adresse nicht. */
+const cleanPath = Astro.url.pathname.replace(/\.html$/, "").replace(/\/index$/, "/").replace(/(.)\/+$/, "$1") || "/";
+const canonical = new URL(cleanPath, siteOrigin).href;
+const ogImage = new URL(href("/og.png"), siteOrigin).href;
 
 /* Organisation als InsuranceAgency; TODO-Werte bleiben weg, bis sie vorliegen. */
 const organization = {
   "@context": "https://schema.org",
   "@type": "InsuranceAgency",
   name: BRAND_NAME,
-  url: SITE_URL,
-  logo: new URL("/apple-touch-icon.png", SITE_URL).href,
+  url: siteOrigin,
+  logo: new URL(href("/apple-touch-icon.png"), siteOrigin).href,
   image: ogImage,
   description: SITE_DESCRIPTION,
   slogan: "Frage immer erst warum.",
@@ -61,9 +65,9 @@ const organization = {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href={href("/favicon.svg")} type="image/svg+xml" />
+    <link rel="icon" href={href("/favicon-32.png")} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={href("/apple-touch-icon.png")} sizes="180x180" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0b1626" media="(prefers-color-scheme: dark)" />
 
@@ -113,5 +117,11 @@ const organization = {
     </main>
     <Footer />
     <WhatsAppButton variant="floating" />
+    <script>
+      import { updateSpeciesLinks } from "../lib/species-client";
+
+      /* Handlungsaufrufe tragen die gespeicherte Tierwahl schon beim Laden. */
+      updateSpeciesLinks();
+    </script>
   </body>
 </html>

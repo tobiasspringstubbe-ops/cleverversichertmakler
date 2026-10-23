@@ -16,6 +16,7 @@ import Icon from "../components/Icon.astro";
 import PlaceholderBadge from "../components/PlaceholderBadge.astro";
 import { CLAIM } from "../config";
 import { faq, team } from "../data";
+import { href } from "../lib/url";
 
 const faqHome = faq.slice(0, 6);
 const faqJsonLd = {
@@ -86,7 +87,7 @@ const faqJsonLd = {
       <div class="team-grid">
         {team.slice(0, 3).map((m) => <TeamCard member={m} />)}
       </div>
-      <p class="section__more"><a class="button button--secondary" href="/team">Das ganze Team</a></p>
+      <p class="section__more"><a class="button button--secondary" href={href("/team")}>Das ganze Team</a></p>
       <Cta />
     </div>
   </section>
@@ -95,7 +96,7 @@ const faqJsonLd = {
     <div class="container">
       <h2>Wir unterstützen Tierschutz – mit Geld, nicht mit Worten</h2>
       <PartnerGrid compact />
-      <p class="section__more"><a class="button button--secondary" href="/tierschutz">Mehr zum Tierschutz</a></p>
+      <p class="section__more"><a class="button button--secondary" href={href("/tierschutz")}>Mehr zum Tierschutz</a></p>
       <Cta />
     </div>
   </section>

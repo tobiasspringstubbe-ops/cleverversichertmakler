@@ -6,6 +6,7 @@ import Cta from "../../components/Cta.astro";
 import PlaceholderBadge from "../../components/PlaceholderBadge.astro";
 import { BRAND_NAME, SITE_URL } from "../../config";
 import { species } from "../../data";
+import { href } from "../../lib/url";
 
 export async function getStaticPaths() {
   const articles = await getCollection("wissen");
@@ -28,8 +29,8 @@ const jsonLd = {
   inLanguage: "de",
   author: { "@type": "Organization", name: BRAND_NAME },
   publisher: { "@type": "Organization", name: BRAND_NAME, url: SITE_URL },
-  mainEntityOfPage: new URL(`/wissen/${article.id}`, SITE_URL).href,
-  image: new URL("/og.png", SITE_URL).href,
+  mainEntityOfPage: new URL(href(`/wissen/${article.id}`), Astro.site ?? SITE_URL).href,
+  image: new URL(href("/og.png"), Astro.site ?? SITE_URL).href,
 };
 ---
 
