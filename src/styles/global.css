@@ -276,6 +276,10 @@ textarea {
   white-space: nowrap;
 }
 
+html[data-placeholder="false"] .placeholder-badge {
+  display: none;
+}
+
 /* Hilfsklassen */
 
 .visually-hidden {

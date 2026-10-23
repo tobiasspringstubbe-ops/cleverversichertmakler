@@ -73,3 +73,23 @@ Jeder Platzhalter im Projekt steht hier mit Datei, Zeile und dem, was fehlt. Nic
 - Die Altersbänder beim Pferd heißen `u2`, `3-8`, `9-14`, `15+`; bei Hund und Katze `u1`, `1-3`, `4-6`, `7-9`, `10+`.
 - Die FAQ-Texte sind tierartneutral, weil der Brief nur eine Fassung je Frage nennt. Der Brief sieht vor, dass Abschnitt 9 mit der Tierart wechselt; das würde eigene Antworten je Tierart brauchen.
 - Die Validierung läuft in `src/data/index.ts` beim Build: Schema je Datei plus Querprüfung, dass jeder Versicherer genau die Kriterienschlüssel und Altersbänder seiner Tierarten hat.
+
+## Platzhalter aus Schritt 6 (Wissen-Artikel)
+
+Jede Zahl ohne Quelle trägt im Artikel ein Badge „Platzhalter“ und ein `TODO`. Die Quellen stehen im Frontmatter unter `sources`.
+
+| Datei | Was fehlt | Nr. im Brief |
+| --- | --- | --- |
+| `src/content/wissen/got-tierarztkosten.md` | Verordnungstext und Datum prüfen, Höhe der Notdienstgebühr, drei GOT-Beispielrechnungen | 10 |
+| `src/content/wissen/op-oder-vollschutz.md` | Nachbehandlungszeitraum je Tarif, typische Beitragsspannen je Tierart und Schutzart | 5 |
+| `src/content/wissen/vier-streitpunkte.md` | Spannen der Sonderwartezeiten je Tarif | 5 |
+| `src/content/wissen/hueftdysplasie-hund.md` | Fachquelle zu Entstehung und Rassen, Häufigkeit je Rasse, GOT-Beispielrechnung je Verfahren | 10 |
+| `src/content/wissen/magendrehung.md` | Fachquelle zu Symptomen und Risikofaktoren, GOT-Beispielrechnung, Tarifprüfung zur vorbeugenden Magenfixierung | 10 |
+| `src/content/wissen/katze-dauerpatienten.md` | Fachquelle zu CNE, FORL und Harnwegen, GOT-Beispielrechnungen | 10 |
+| `src/content/wissen/kolik-pferd.md` | Fachquelle zu Kolikformen, GOT-Beispielrechnung, Bedingungswerke zu Kolik-OP | 10 |
+| `src/content/wissen/alter-und-aufnahme.md` | Mindestalter, Höchstaufnahmealter und Altersstaffeln je Tarif | 5 |
+| `src/content/wissen/sparen-statt-versichern.md` | Beitragsspannen, GOT-Beispielrechnungen | 5, 10 |
+| `src/content/wissen/glossar.md` | keine offenen Zahlen; Begriffe bei Bedarf ergänzen | – |
+
+- Die Quellenlinks auf gesetze-im-internet.de (GOT, VVG, GewO, VersVermV) sind aus dem Gedächtnis gesetzt und vor dem Go-live zu prüfen.
+- Die Badges in den Artikeln sind als HTML im Markdown gesetzt; sie verschwinden mit allen anderen Badges, sobald `PLACEHOLDER_MODE` auf `false` steht.

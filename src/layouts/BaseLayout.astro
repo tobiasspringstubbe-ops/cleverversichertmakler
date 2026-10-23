@@ -17,7 +17,7 @@ import poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
-import { BRAND_NAME, CONTACT_MAIL, CONTACT_PHONE, LOCALE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL, STANDORT, isPlaceholder } from "../config";
+import { BRAND_NAME, CONTACT_MAIL, CONTACT_PHONE, LOCALE, PLACEHOLDER_MODE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL, STANDORT, isPlaceholder } from "../config";
 
 interface Props {
   title?: string;
@@ -52,7 +52,7 @@ const organization = {
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang="de" data-placeholder={PLACEHOLDER_MODE ? "true" : "false"}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
