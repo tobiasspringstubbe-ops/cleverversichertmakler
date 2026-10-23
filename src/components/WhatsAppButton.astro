@@ -1,0 +1,61 @@
+---
+/**
+ * WhatsApp-Button: ab 600 px im Header mit Text, darunter schwebend unten
+ * rechts (56 px rund, nur Icon, Beschriftung als Tooltip und aria-label).
+ * Quelle: BRIEF.md Abschnitt 4 und 6.
+ */
+import Icon from "./Icon.astro";
+import { WHATSAPP_DEFAULT_TEXT } from "../config";
+import { whatsappLink } from "../lib/whatsapp";
+
+interface Props {
+  variant: "header" | "floating";
+}
+
+const { variant } = Astro.props;
+const href = whatsappLink(WHATSAPP_DEFAULT_TEXT);
+---
+
+{
+  variant === "header" ? (
+    <a class="button button--whatsapp wa-header" href={href} target="_blank" rel="noopener">
+      <Icon name="sprechblase" />
+      WhatsApp
+    </a>
+  ) : (
+    <a class="wa-floating" href={href} target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+      <Icon name="sprechblase" size={26} />
+    </a>
+  )
+}
+
+<style>
+  .wa-header {
+    display: none;
+  }
+
+  .wa-floating {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    color: var(--on-accent);
+  }
+
+  @media (min-width: 600px) {
+    .wa-header {
+      display: inline-flex;
+    }
+
+    .wa-floating {
+      display: none;
+    }
+  }
+</style>

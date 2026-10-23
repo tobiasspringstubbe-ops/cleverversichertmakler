@@ -1,0 +1,125 @@
+/*
+ * Design-Tokens der Marke clever versichert.
+ * Hell ist Standard; Dunkel über prefers-color-scheme oder [data-theme="dark"].
+ * Quelle: BRIEF.md Abschnitt 3.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Farben */
+  --navy: #011c40;
+  --slate: #3b617e;
+  --gold: #c2944d;
+  --wine: #8f3d4c;
+  --paper: #ffffff;
+  --mist: #f2f5f8;
+  --ink-muted: #5b6b7c;
+  --line: rgba(1, 28, 64, 0.14);
+  --ok: #1f7a4d;
+  --ok-bg: #e6f4ec;
+  --warn: #8a5a00;
+  --warn-bg: #fff3d6;
+  --no: #9b2335;
+  --no-bg: #fbe7ea;
+  --unrated: #5b6b7c;
+  --unrated-bg: #eef1f4;
+  --whatsapp: #1a7f4b;
+  --on-accent: #ffffff;
+
+  /* Schrift */
+  --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --text-base: 16px;
+  --leading: 1.55;
+  --measure: 68ch;
+  --h1-size: clamp(30px, 6vw, 44px);
+  --h2-size: clamp(24px, 4vw, 32px);
+  --h3-size: 20px;
+
+  /* Form */
+  --radius-button: 10px;
+  --radius-card: 16px;
+  --button-height: 48px;
+  --header-height: 64px;
+  --touch-min: 44px;
+
+  /* Abstände */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --gutter: 16px;
+  --container: 1120px;
+
+  /* Bewegung */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration: 180ms;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --text-base: 17px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --navy: #eef2f7;
+    --slate: #86abc6;
+    --gold: #d6b06e;
+    --wine: #c47585;
+    --paper: #0b1626;
+    --mist: #14223a;
+    --ink-muted: #aab7c6;
+    --line: rgba(255, 255, 255, 0.14);
+    --ok: #7fd1a3;
+    --ok-bg: #12392a;
+    --warn: #f2c66b;
+    --warn-bg: #3a2a08;
+    --no: #f09ba8;
+    --no-bg: #3e1419;
+    --unrated: #aab7c6;
+    --unrated-bg: #1b2a42;
+    --whatsapp: #2fa866;
+    --on-accent: #0b1626;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --navy: #eef2f7;
+  --slate: #86abc6;
+  --gold: #d6b06e;
+  --wine: #c47585;
+  --paper: #0b1626;
+  --mist: #14223a;
+  --ink-muted: #aab7c6;
+  --line: rgba(255, 255, 255, 0.14);
+  --ok: #7fd1a3;
+  --ok-bg: #12392a;
+  --warn: #f2c66b;
+  --warn-bg: #3a2a08;
+  --no: #f09ba8;
+  --no-bg: #3e1419;
+  --unrated: #aab7c6;
+  --unrated-bg: #1b2a42;
+  --whatsapp: #2fa866;
+  --on-accent: #0b1626;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration: 0ms;
+  }
+}

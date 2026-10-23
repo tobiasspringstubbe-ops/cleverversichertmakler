@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" shape-rendering="geometricPrecision">
+  <title>clever versichert – Smiley</title>
+  <defs>
+    <clipPath id="circle-clip"><circle cx="512" cy="512" r="440" /></clipPath>
+  </defs>
+  <g id="three-stripes" clip-path="url(#circle-clip)">
+    <rect x="72" y="72" width="880" height="880" fill="#3B617E" />
+    <rect x="459.2" y="72" width="105.6" height="880" fill="#C2944D" />
+    <rect x="564.8" y="72" width="387.2" height="880" fill="#8F3D4C" />
+  </g>
+  <g id="face" fill="#FFFFFF">
+    <circle id="left-eye" cx="352.0" cy="433" r="75.5" />
+    <path id="wink-eye" d="M 790 350 L 705 433 L 790 516" fill="none" stroke="#FFFFFF" stroke-width="66" stroke-linecap="round" stroke-linejoin="round" />
+    <path id="smile" d="M 328.803956401473 658 C 413.803956401473 742 610.196043598527 742 695.196043598527 658" fill="none" stroke="#FFFFFF" stroke-width="66" stroke-linecap="butt" />
+  </g>
+</svg>

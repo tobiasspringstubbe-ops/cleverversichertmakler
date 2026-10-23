@@ -1,0 +1,100 @@
+---
+/**
+ * Basislayout aller Seiten: Meta- und Open-Graph-Tags, Favicons, Schriften,
+ * Header, Navigation, Footer und schwebender WhatsApp-Button.
+ * Quelle: BRIEF.md Abschnitt 2, 3, 4 und 8.
+ */
+import "../styles/tokens.css";
+import "../styles/global.css";
+import "@fontsource/poppins/latin-400.css";
+import "@fontsource/poppins/latin-500.css";
+import "@fontsource/poppins/latin-600.css";
+import "@fontsource/poppins/latin-700.css";
+import "@fontsource/poppins/latin-800.css";
+import poppins400 from "@fontsource/poppins/files/poppins-latin-400-normal.woff2?url";
+import poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2?url";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+import { BRAND_NAME, LOCALE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Open-Graph-Typ, Standard website; Artikel setzen article. */
+  ogType?: "website" | "article";
+  /** Seite nicht indexieren, z. B. 404. */
+  noindex?: boolean;
+}
+
+const { title, description = SITE_DESCRIPTION, ogType = "website", noindex = false } = Astro.props;
+
+const pageTitle = title ? `${title} – ${BRAND_NAME}` : SITE_TITLE;
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, "") || "/", SITE_URL).href;
+const ogImage = new URL("/og.png", SITE_URL).href;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1626" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:site_name" content={BRAND_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={LOCALE} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Smiley und Wortmarke clever versichert" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preload" href={poppins400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={poppins700} as="font" type="font/woff2" crossorigin />
+
+    <script is:inline>
+      /* Gespeicherten Farbmodus und Tierwahl vor dem ersten Rendern anwenden. */
+      (function () {
+        var root = document.documentElement;
+        try {
+          var theme = localStorage.getItem("cv_theme");
+          if (theme === "dark" || theme === "light") root.setAttribute("data-theme", theme);
+        } catch (e) {}
+        try {
+          var param = new URLSearchParams(location.search).get("tier");
+          var species = param && /^(hund|katze|pferd)$/.test(param) ? param : null;
+          if (species) localStorage.setItem("cv_species", species);
+          else species = localStorage.getItem("cv_species");
+          if (species && /^(hund|katze|pferd)$/.test(species)) root.setAttribute("data-species", species);
+        } catch (e) {}
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <Header />
+    <main id="inhalt">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton variant="floating" />
+  </body>
+</html>

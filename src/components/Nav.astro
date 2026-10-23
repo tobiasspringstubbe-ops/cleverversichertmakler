@@ -1,0 +1,107 @@
+---
+/**
+ * Hauptnavigation mit genau fünf Punkten. Mobil als horizontal scrollbare
+ * Chip-Leiste unter dem Header, ab 900 px als Textzeile im Header.
+ */
+import { NAV_ITEMS, isActive } from "../lib/nav";
+
+interface Props {
+  variant: "bar" | "inline";
+}
+
+const { variant } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<nav class:list={["nav", `nav--${variant}`]} aria-label="Hauptnavigation">
+  <ul class="nav__list">
+    {
+      NAV_ITEMS.map((item) => {
+        const active = isActive(pathname, item.href);
+        return (
+          <li>
+            <a class:list={["nav__link", { "is-active": active }]} href={item.href} aria-current={active ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
+
+<style>
+  .nav__list {
+    display: flex;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-min);
+    padding: 0 var(--space-3);
+    color: var(--navy);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav__link.is-active {
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+
+  /* Mobil: Chip-Leiste unter dem Header */
+  .nav--bar {
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .nav--bar .nav__list {
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: var(--space-2) var(--gutter);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav--bar .nav__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav--bar .nav__link {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0 var(--space-4);
+    min-height: 40px;
+  }
+
+  .nav--bar .nav__link.is-active {
+    border-color: var(--navy);
+  }
+
+  .nav--inline {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .nav--bar {
+      display: none;
+    }
+
+    .nav--inline {
+      display: block;
+    }
+
+    .nav--inline .nav__link:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.35em;
+    }
+  }
+</style>

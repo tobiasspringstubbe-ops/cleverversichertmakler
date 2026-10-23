@@ -1,0 +1,84 @@
+---
+/**
+ * Bildmarke (Smiley als Inline-SVG) und Wortmarke als HTML-Text.
+ * Quelle: BRIEF.md Abschnitt 3.
+ */
+interface Props {
+  size?: number;
+  href?: string | undefined;
+  class?: string;
+  /** Eindeutiger Zusatz für die Clip-ID, falls das Logo mehrfach auf einer Seite steht. */
+  id?: string;
+}
+
+const { size = 36, href = "/", class: className, id = "main" } = Astro.props;
+const clipId = `logo-clip-${id}`;
+const Tag = href ? "a" : "div";
+---
+
+<Tag
+  class:list={["logo", className]}
+  href={href}
+  aria-label={href ? "clever versichert, zur Startseite" : "clever versichert"}
+  style={`--logo-size:${size}px`}
+>
+  <svg class="logo__mark" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id={clipId}><circle cx="512" cy="512" r="440" /></clipPath>
+    </defs>
+    <g clip-path={`url(#${clipId})`}>
+      <rect x="72" y="72" width="880" height="880" fill="#3B617E" />
+      <rect x="459.2" y="72" width="105.6" height="880" fill="#C2944D" />
+      <rect x="564.8" y="72" width="387.2" height="880" fill="#8F3D4C" />
+    </g>
+    <g fill="#FFFFFF">
+      <circle cx="352" cy="433" r="75.5" />
+      <path d="M 790 350 L 705 433 L 790 516" fill="none" stroke="#FFFFFF" stroke-width="66" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 328.804 658 C 413.804 742 610.196 742 695.196 658" fill="none" stroke="#FFFFFF" stroke-width="66" stroke-linecap="butt" />
+    </g>
+  </svg>
+  <span class="logo__word" aria-hidden="true">
+    <span class="logo__clever">clever</span>
+    <span class="logo__versichert">versichert</span>
+  </span>
+</Tag>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--logo-size) * 0.3);
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .logo__mark {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    flex: none;
+  }
+
+  .logo__word {
+    display: flex;
+    flex-direction: column;
+    height: var(--logo-size);
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .logo__clever {
+    font-weight: 800;
+    font-size: calc(var(--logo-size) * 0.66);
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
+    line-height: 0.95;
+  }
+
+  .logo__versichert {
+    font-weight: 500;
+    font-size: calc(var(--logo-size) * 0.66 * 0.45);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-top: calc(var(--logo-size) * 0.06);
+  }
+</style>

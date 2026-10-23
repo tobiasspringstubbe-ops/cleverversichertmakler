@@ -1,0 +1,247 @@
+---
+/**
+ * Footer mit vier Spalten: Kontakt, Seiten, Rechtliches, Marke mit Claim und
+ * Dunkelmodus-Schalter. Quelle: BRIEF.md Abschnitt 4.
+ */
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import PlaceholderBadge from "./PlaceholderBadge.astro";
+import { NAV_ITEMS } from "../lib/nav";
+import { whatsappLink } from "../lib/whatsapp";
+import {
+  CLAIM,
+  CONTACT_MAIL,
+  CONTACT_PHONE,
+  ERREICHBARKEIT_TEXT,
+  WHATSAPP_DEFAULT_TEXT,
+  WHATSAPP_NUMBER,
+  isPlaceholder,
+} from "../config";
+
+const year = new Date().getFullYear();
+const phoneHref = isPlaceholder(CONTACT_PHONE) ? undefined : `tel:${CONTACT_PHONE.replace(/[^\d+]/g, "")}`;
+const mailHref = isPlaceholder(CONTACT_MAIL) ? undefined : `mailto:${CONTACT_MAIL}`;
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <section class="footer__col">
+      <h2 class="footer__title">Kontakt</h2>
+      <ul class="footer__list">
+        <li>
+          <Icon name="telefon" />
+          {phoneHref ? <a href={phoneHref}>{CONTACT_PHONE}</a> : <span>{CONTACT_PHONE}</span>}
+          <PlaceholderBadge value={CONTACT_PHONE} />
+        </li>
+        <li>
+          <Icon name="mail" />
+          {mailHref ? <a href={mailHref}>{CONTACT_MAIL}</a> : <span>{CONTACT_MAIL}</span>}
+          <PlaceholderBadge value={CONTACT_MAIL} />
+        </li>
+        <li>
+          <Icon name="sprechblase" />
+          <a href={whatsappLink(WHATSAPP_DEFAULT_TEXT)} target="_blank" rel="noopener">WhatsApp</a>
+          <PlaceholderBadge value={WHATSAPP_NUMBER} />
+        </li>
+      </ul>
+      <p class="footer__small">
+        {ERREICHBARKEIT_TEXT}
+        <PlaceholderBadge value={ERREICHBARKEIT_TEXT} />
+      </p>
+      <p class="footer__small">
+        WhatsApp ist ein Dienst von Meta. Was dabei mit deinen Daten passiert, steht in der <a href="/datenschutz">Datenschutzerklärung</a>.
+        <PlaceholderBadge force />
+      </p>
+    </section>
+
+    <section class="footer__col">
+      <h2 class="footer__title">Seiten</h2>
+      <ul class="footer__list">
+        <li><a href="/">Startseite</a></li>
+        {NAV_ITEMS.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href="/so-bewerten-wir">So bewerten wir</a></li>
+      </ul>
+    </section>
+
+    <section class="footer__col">
+      <h2 class="footer__title">Rechtliches</h2>
+      <ul class="footer__list">
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+        <li><a href="/erstinformation">Erstinformation</a></li>
+        <li>
+          <a href="/erstinformation.pdf">Erstinformation als PDF</a>
+          <PlaceholderBadge force />
+        </li>
+      </ul>
+    </section>
+
+    <section class="footer__col footer__brand">
+      <Logo size={40} href={undefined} id="footer" />
+      <p class="footer__claim">{CLAIM}</p>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+        <span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__knob"></span></span>
+        <span data-theme-label>Dunkelmodus</span>
+      </button>
+    </section>
+  </div>
+  <div class="container footer__bottom">
+    <p class="footer__small">
+      {year} clever versichert. Beratung aus Mittelhessen für Hund, Katze und Pferd.
+    </p>
+  </div>
+</footer>
+
+<script>
+  const KEY = "cv_theme";
+  const root = document.documentElement;
+  const toggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  const label = document.querySelector<HTMLElement>("[data-theme-label]");
+
+  function isDark(): boolean {
+    const forced = root.getAttribute("data-theme");
+    if (forced === "dark") return true;
+    if (forced === "light") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  function render(): void {
+    const dark = isDark();
+    toggle?.setAttribute("aria-pressed", String(dark));
+    if (label) label.textContent = dark ? "Hellmodus" : "Dunkelmodus";
+  }
+
+  toggle?.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem(KEY, next);
+    } catch {
+      /* Speicher nicht verfügbar, Wahl gilt nur für diese Seite */
+    }
+    render();
+  });
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  render();
+</script>
+
+<style>
+  .footer {
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--line);
+    background: var(--mist);
+    padding-block: var(--space-7) var(--space-5);
+    /* Platz für den schwebenden WhatsApp-Button auf kleinen Bildschirmen */
+    padding-bottom: calc(var(--space-5) + 72px);
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .footer__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .footer__list {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+  }
+
+  .footer__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 36px;
+    flex-wrap: wrap;
+  }
+
+  .footer__list .icon {
+    color: var(--slate);
+  }
+
+  .footer__small {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+  }
+
+  .footer__claim {
+    margin-top: var(--space-3);
+    color: var(--ink-muted);
+  }
+
+  .footer__bottom {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer__bottom p {
+    margin: 0;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--touch-min);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--navy);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .theme-toggle__track {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    border-radius: 999px;
+    border: 1px solid var(--slate);
+    background: var(--paper);
+    transition: background-color var(--duration) var(--ease);
+  }
+
+  .theme-toggle__knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--slate);
+    transition: transform var(--duration) var(--ease);
+  }
+
+  .theme-toggle[aria-pressed="true"] .theme-toggle__track {
+    background: var(--slate);
+  }
+
+  .theme-toggle[aria-pressed="true"] .theme-toggle__knob {
+    background: var(--paper);
+    transform: translateX(20px);
+  }
+
+  @media (min-width: 600px) {
+    .footer {
+      padding-bottom: var(--space-5);
+    }
+
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    }
+  }
+</style>

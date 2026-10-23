@@ -1,0 +1,17 @@
+---
+/**
+ * Kleines gelbes Badge „Platzhalter“. Erscheint nur, solange PLACEHOLDER_MODE
+ * wahr ist und der übergebene Wert ein Platzhalter ist.
+ */
+import { PLACEHOLDER_MODE, isPlaceholder } from "../config";
+
+interface Props {
+  value?: unknown;
+  force?: boolean;
+}
+
+const { value, force = false } = Astro.props;
+const show = PLACEHOLDER_MODE && (force || isPlaceholder(value));
+---
+
+{show && <span class="placeholder-badge">Platzhalter</span>}

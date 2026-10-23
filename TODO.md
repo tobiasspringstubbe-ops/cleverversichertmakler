@@ -38,3 +38,18 @@ Jeder Platzhalter im Projekt steht hier mit Datei, Zeile und dem, was fehlt. Nic
 - [ ] 12 Formular-Endpunkt (CRM-Webhook)
 - [ ] 13 Google-Unternehmensprofil und erste Rezensionen
 - [ ] 14 Echte Fotos: Team, Beratungssituation, Partnervereine
+
+## Platzhalter und Annahmen aus Schritt 2 (Basislayout)
+
+| Datei | Stelle | Was fehlt oder gilt | Nr. im Brief |
+| --- | --- | --- | --- |
+| `public/erstinformation.pdf` | Footer-Link „Erstinformation als PDF“ | Datei fehlt noch; der Link ist bis dahin tot und trägt das Badge | 8 |
+| `src/components/Footer.astro` | Satz zu WhatsApp und Meta | Formulierung vom Datenschutz-Generator oder Anwalt bestätigen lassen | 7 |
+| `public/brand/smiley.svg` | Bildmarke | Finale Logovariante; alle Icons (Favicon, Touch-Icon, og.png) werden aus dieser SVG erzeugt | 1 |
+
+- Die Navigationspunkte verlinken auf Seiten, die erst in Schritt 5 entstehen. Bis dahin führen sie auf 404.
+- Primär- und WhatsApp-Button tragen im Hellmodus weißen Text. Im Dunkelmodus sind `--wine` und `--whatsapp` heller, weißer Text erreicht dort keine 4,5:1; deshalb steht dort dunkler Text (`--on-accent`). Der Brief nennt nur Weiß.
+- Die mobile Chip-Leiste der Navigation sitzt unter dem Sticky-Header, ist aber selbst nicht sticky, damit auf kleinen Bildschirmen Platz bleibt.
+- Die Wortmarke „VERSICHERT“ steht im HTML als „versichert“ und wird per CSS in Versalien gesetzt, damit Vorleseprogramme das Wort natürlich lesen.
+- Der WhatsApp-Link fällt ohne Nummer auf `wa.me` ohne Nummer zurück, bis `WHATSAPP_NUMBER` eingetragen ist.
+- Die PNG-Icons und `og.png` entstehen mit Chromium aus `public/brand/smiley.svg` (Skript außerhalb des Projekts). Ändert sich die SVG, müssen sie neu erzeugt werden.

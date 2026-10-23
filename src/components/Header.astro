@@ -1,0 +1,37 @@
+---
+/**
+ * Sticky-Header, 64 px hoch: Smiley und Wortmarke links, WhatsApp-Button
+ * rechts, ab 900 px die Navigation dazwischen. Quelle: BRIEF.md Abschnitt 4.
+ */
+import Logo from "./Logo.astro";
+import Nav from "./Nav.astro";
+import WhatsAppButton from "./WhatsAppButton.astro";
+---
+
+<header class="header">
+  <div class="header__inner container">
+    <Logo size={36} id="header" />
+    <Nav variant="inline" />
+    <WhatsAppButton variant="header" />
+  </div>
+</header>
+<Nav variant="bar" />
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    height: var(--header-height);
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    height: 100%;
+  }
+</style>

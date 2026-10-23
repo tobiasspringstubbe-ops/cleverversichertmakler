@@ -1,18 +1,17 @@
 ---
-import { BRAND_NAME, CLAIM, SITE_DESCRIPTION, SITE_TITLE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { CLAIM } from "../config";
 ---
 
-<!doctype html>
-<html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{SITE_TITLE}</title>
-    <meta name="description" content={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <h1>{BRAND_NAME}</h1>
-    <p>{CLAIM}</p>
-    <p>Diese Seite entsteht gerade. Basislayout und Inhalte folgen in Schritt 2 bis 6 aus BRIEF.md.</p>
-  </body>
-</html>
+<BaseLayout>
+  <section class="section">
+    <div class="container">
+      <h1>Für wen suchst du Schutz?</h1>
+      <p class="muted">{CLAIM}</p>
+      <p>Diese Seite entsteht gerade. Tierwahl, Kostenkarten, Tier-Kompass und Kontaktformular folgen in Schritt 3 bis 6 aus BRIEF.md.</p>
+      <p>
+        <a class="button button--primary" href="/kontakt">Erzähl uns von deinem Tier</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
